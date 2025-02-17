@@ -25,7 +25,7 @@ import (
 )
 
 func TestDoHello(t *testing.T) {
-	os.Setenv("ALIBABA_CLOUD_VENDOR", "cli_test_VendorTest")
+	os.Setenv(ENV_SUFFIX+"_VENDOR", "cli_test_VendorTest")
 
 	w := new(bytes.Buffer)
 	stderr := new(bytes.Buffer)
@@ -37,7 +37,7 @@ func TestDoHello(t *testing.T) {
 	exw := "-----------------------------------------------\n" +
 		"!!! Configure Failed please configure again !!!\n" +
 		"-----------------------------------------------\n" +
-		"AccessKeyId/AccessKeySecret is empty! run `aliyun configure` first\n" +
+		"AccessKeyId/AccessKeySecret is empty! run `" + CloudMarker + " configure` first\n" +
 		"-----------------------------------------------\n" +
 		"!!! Configure Failed please configure again !!!\n" +
 		"-----------------------------------------------\n"

@@ -2,6 +2,7 @@ package lib
 
 import (
 	"encoding/xml"
+	"github.com/aliyun/aliyun-cli/config"
 	"os"
 
 	oss "github.com/aliyun/aliyun-oss-go-sdk/oss"
@@ -15,7 +16,7 @@ func (s *OssutilCommandSuite) TestCorsOptionsSuccess(c *C) {
 	corsXml := `<?xml version="1.0" encoding="UTF-8"?>
     <CORSConfiguration>
       <CORSRule>
-          <AllowedOrigin>www.aliyun.com</AllowedOrigin>
+          <AllowedOrigin>` + config.DEFAULT_PROBE_DOMAIN + `</AllowedOrigin>
           <AllowedMethod>PUT</AllowedMethod>
           <AllowedHeader>x-oss-meta-author</AllowedHeader>
           <ExposeHeader>x-oss-meta-name</ExposeHeader>
@@ -47,7 +48,7 @@ func (s *OssutilCommandSuite) TestCorsOptionsSuccess(c *C) {
 	c.Assert(err, IsNil)
 
 	// cors-options success
-	strOrigin := "www.aliyun.com"
+	strOrigin := config.DEFAULT_PROBE_DOMAIN
 	strAcrHeaders := "x-oss-meta-author"
 	options["origin"] = &strOrigin
 	options["acrHeaders"] = &strAcrHeaders

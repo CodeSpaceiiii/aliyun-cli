@@ -159,9 +159,9 @@ func (a *BasicInvoker) Init(ctx *cli.Context, product *meta.Product) error {
 		}
 	}
 
-	hint := "you can find it on https://help.aliyun.com"
+	hint := "you can find it on " + config.HOME_PAGE
 	if product.Version != "" {
-		hint = fmt.Sprintf("please use `aliyun help %s` get more information.", product.GetLowerCode())
+		hint = fmt.Sprintf("please use `"+config.CloudMarker+" help %s` get more information.", product.GetLowerCode())
 	}
 
 	if a.request.Version == "" {
@@ -178,17 +178,17 @@ func (a *BasicInvoker) Init(ctx *cli.Context, product *meta.Product) error {
 	if err != nil {
 		return fmt.Errorf("init client failed %s", err)
 	}
-	if vendorEnv, ok := os.LookupEnv("ALIBABA_CLOUD_VENDOR"); ok {
+	if vendorEnv, ok := os.LookupEnv(config.ENV_SUFFIX + "_VENDOR"); ok {
 		a.client.AppendUserAgent("vendor", vendorEnv)
 	}
-	a.client.AppendUserAgent("Aliyun-CLI", cli.GetVersion())
+	a.client.AppendUserAgent(config.USER_AGENT, cli.GetVersion())
 
 	if a.request.Domain == "" {
 		a.request.Domain, err = product.GetEndpoint(a.request.RegionId, a.client)
 		if err != nil {
 			return cli.NewErrorWithTip(
 				fmt.Errorf("unknown endpoint for %s/%s! failed %s", product.GetLowerCode(), a.request.RegionId, err),
-				"Use flag --endpoint xxx.aliyuncs.com to assign endpoint, "+hint)
+				"Use flag --endpoint xxx."+config.DOMAIN_SUFFIX+" to assign endpoint, "+hint)
 		}
 	}
 

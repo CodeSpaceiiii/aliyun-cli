@@ -3,6 +3,7 @@ package lib
 import (
 	"encoding/xml"
 	"fmt"
+	"github.com/aliyun/aliyun-cli/config"
 	"io/ioutil"
 	"os"
 	"strings"
@@ -33,8 +34,8 @@ func (s *OssutilCommandSuite) TestBucketReplicationPutAndGetSuccess(c *C) {
 	str := ""
 	sourceRegion := "hangzhou"
 	destinationRegion := "beijing"
-	sourceEndpoint := "oss-cn-" + sourceRegion + ".aliyuncs.com"
-	destinationEndpoint := "oss-cn-" + destinationRegion + ".aliyuncs.com"
+	sourceEndpoint := "oss-cn-" + sourceRegion + "." + config.DOMAIN_SUFFIX
+	destinationEndpoint := "oss-cn-" + destinationRegion + "." + config.DOMAIN_SUFFIX
 
 	// create source bucket
 	sourceBucketName := bucketNamePrefix + randLowStr(12)
@@ -172,8 +173,8 @@ func (s *OssutilCommandSuite) TestBucketReplicationDeleteSuccess(c *C) {
 	str := ""
 	sourceRegion := "hangzhou"
 	destinationRegion := "beijing"
-	sourceEndpoint := "oss-cn-" + sourceRegion + ".aliyuncs.com"
-	destinationEndpoint := "oss-cn-" + destinationRegion + ".aliyuncs.com"
+	sourceEndpoint := "oss-cn-" + sourceRegion + "." + config.DOMAIN_SUFFIX
+	destinationEndpoint := "oss-cn-" + destinationRegion + "." + config.DOMAIN_SUFFIX
 
 	// create source bucket
 	sourceBucketName := bucketNamePrefix + randLowStr(12)
@@ -366,8 +367,8 @@ func (s *OssutilCommandSuite) TestBucketReplicationDeleteWithEmptyRuleID(c *C) {
 	str := ""
 	sourceRegion := "hangzhou"
 	destinationRegion := "beijing"
-	sourceEndpoint := "oss-cn-" + sourceRegion + ".aliyuncs.com"
-	destinationEndpoint := "oss-cn-" + destinationRegion + ".aliyuncs.com"
+	sourceEndpoint := "oss-cn-" + sourceRegion + "." + config.DOMAIN_SUFFIX
+	destinationEndpoint := "oss-cn-" + destinationRegion + "." + config.DOMAIN_SUFFIX
 
 	// create source bucket
 	sourceBucketName := bucketNamePrefix + randLowStr(12)
@@ -554,7 +555,7 @@ func (s *OssutilCommandSuite) TestBucketReplicationDeleteWithEmptyRuleID(c *C) {
 func (s *OssutilCommandSuite) TestBucketReplicationGetLocation(c *C) {
 	str := ""
 	sourceRegion := "hangzhou"
-	sourceEndpoint := "oss-cn-" + sourceRegion + ".aliyuncs.com"
+	sourceEndpoint := "oss-cn-" + sourceRegion + "." + config.DOMAIN_SUFFIX
 
 	// create source bucket
 	sourceBucketName := bucketNamePrefix + randLowStr(12)
@@ -627,9 +628,9 @@ func (s *OssutilCommandSuite) TestBucketReplicationGetProgressWithRuleID(c *C) {
 	sourceRegion := "hangzhou"
 	firstDestinationRegion := "beijing"
 	secondDestinationRegion := "shenzhen"
-	sourceEndpoint := "oss-cn-" + sourceRegion + ".aliyuncs.com"
-	firstDestinationEndpoint := "oss-cn-" + firstDestinationRegion + ".aliyuncs.com"
-	secondDestinationEndpoint := "oss-cn-" + secondDestinationRegion + ".aliyuncs.com"
+	sourceEndpoint := "oss-cn-" + sourceRegion + "." + config.DOMAIN_SUFFIX
+	firstDestinationEndpoint := "oss-cn-" + firstDestinationRegion + "." + config.DOMAIN_SUFFIX
+	secondDestinationEndpoint := "oss-cn-" + secondDestinationRegion + "." + config.DOMAIN_SUFFIX
 
 	// create source bucket
 	sourceBucketName := bucketNamePrefix + randLowStr(12)
@@ -902,9 +903,9 @@ func (s *OssutilCommandSuite) TestBucketReplicationGetProgressWithEmptyRuleID(c 
 	sourceRegion := "hangzhou"
 	firstDestinationRegion := "beijing"
 	secondDestinationRegion := "shenzhen"
-	sourceEndpoint := "oss-cn-" + sourceRegion + ".aliyuncs.com"
-	firstDestinationEndpoint := "oss-cn-" + firstDestinationRegion + ".aliyuncs.com"
-	secondDestinationEndpoint := "oss-cn-" + secondDestinationRegion + ".aliyuncs.com"
+	sourceEndpoint := "oss-cn-" + sourceRegion + "." + config.DOMAIN_SUFFIX
+	firstDestinationEndpoint := "oss-cn-" + firstDestinationRegion + "." + config.DOMAIN_SUFFIX
+	secondDestinationEndpoint := "oss-cn-" + secondDestinationRegion + "." + config.DOMAIN_SUFFIX
 
 	// create source bucket
 	sourceBucketName := bucketNamePrefix + randLowStr(12)
@@ -1117,7 +1118,7 @@ func (s *OssutilCommandSuite) TestBucketReplicationGetProgressWithEmptyRuleID(c 
 func (s *OssutilCommandSuite) TestBucketReplicationWithFalseMethod(c *C) {
 	str := ""
 	sourceRegion := "hangzhou"
-	sourceEndpoint := "oss-cn-" + sourceRegion + ".aliyuncs.com"
+	sourceEndpoint := "oss-cn-" + sourceRegion + "." + config.DOMAIN_SUFFIX
 
 	// create source bucket
 	sourceBucketName := bucketNamePrefix + randLowStr(12)
@@ -1182,7 +1183,7 @@ func (s *OssutilCommandSuite) TestBucketReplicationWithFalseMethod(c *C) {
 func (s *OssutilCommandSuite) TestBucketReplicationGetWithFalseItem(c *C) {
 	str := ""
 	sourceRegion := "hangzhou"
-	sourceEndpoint := "oss-cn-" + sourceRegion + ".aliyuncs.com"
+	sourceEndpoint := "oss-cn-" + sourceRegion + "." + config.DOMAIN_SUFFIX
 
 	// create source bucket
 	sourceBucketName := bucketNamePrefix + randLowStr(12)
@@ -1235,8 +1236,8 @@ func (s *OssutilCommandSuite) TestBucketReplicationPutError(c *C) {
 	str := ""
 	sourceRegion := "hangzhou"
 	destinationRegion := "beijing"
-	sourceEndpoint := "oss-cn-" + sourceRegion + ".aliyuncs.com"
-	destinationEndpoint := "oss-cn-" + destinationRegion + ".aliyuncs.com"
+	sourceEndpoint := "oss-cn-" + sourceRegion + "." + config.DOMAIN_SUFFIX
+	destinationEndpoint := "oss-cn-" + destinationRegion + "." + config.DOMAIN_SUFFIX
 
 	// create source bucket
 	sourceBucketName := bucketNamePrefix + randLowStr(12)

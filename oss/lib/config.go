@@ -3,6 +3,7 @@ package lib
 import (
 	"bufio"
 	"fmt"
+	"github.com/aliyun/aliyun-cli/config"
 	"os"
 	"runtime"
 	"strings"
@@ -145,7 +146,7 @@ var specChineseConfig = SpecText{
 
 	sampleText: ` 
     ossutil config
-    ossutil config -e oss-cn-hangzhou.aliyuncs.com -c ~/.myconfig
+    ossutil config -e ` + config.OSS_DEFAULT_REGION + `.` + config.DOMAIN_SUFFIX + ` -c ~/.myconfig
 `,
 }
 
@@ -297,7 +298,7 @@ Credential File Format:
 
 	sampleText: ` 
     ossutil config
-    ossutil config -e oss-cn-hangzhou.aliyuncs.com -c ~/.myconfig
+    ossutil config -e ` + config.OSS_DEFAULT_REGION + `.` + config.DOMAIN_SUFFIX + ` -c ~/.myconfig
 `,
 }
 

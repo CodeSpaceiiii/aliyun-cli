@@ -45,10 +45,10 @@ func Main(args []string) {
 
 	// create root command
 	rootCmd := &cli.Command{
-		Name:              "aliyun",
-		Short:             i18n.T("Alibaba Cloud Command Line Interface Version "+cli.Version, "阿里云CLI命令行工具 "+cli.Version),
-		Usage:             "aliyun <product> <operation> [--parameter1 value1 --parameter2 value2 ...]",
-		Sample:            "aliyun ecs DescribeRegions",
+		Name:              config.CloudMarker,
+		Short:             i18n.T(config.CLI_NAME_EN+" Version "+cli.Version, config.CLI_NAME_CN+" "+cli.Version),
+		Usage:             config.CloudMarker + " <product> <operation> [--parameter1 value1 --parameter2 value2 ...]",
+		Sample:            config.CloudMarker + " ecs DescribeRegions",
 		EnableUnknownFlag: true,
 	}
 

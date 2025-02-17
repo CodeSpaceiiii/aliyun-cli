@@ -1,6 +1,7 @@
 package lib
 
 import (
+	"github.com/aliyun/aliyun-cli/config"
 	"os"
 
 	oss "github.com/aliyun/aliyun-oss-go-sdk/oss"
@@ -10,7 +11,7 @@ import (
 func (s *OssutilCommandSuite) TestListRegionBucketByEndpoint(c *C) {
 	// create bucket in shenzhen
 	bucketName_shenzhen := bucketNamePrefix + randLowStr(10)
-	endpoint_shenzhen := "oss-cn-shenzhen.aliyuncs.com"
+	endpoint_shenzhen := "oss-cn-shenzhen." + config.DOMAIN_SUFFIX
 	command := "mb"
 	args := []string{CloudURLToString(bucketName_shenzhen, "")}
 	str := ""
@@ -27,7 +28,7 @@ func (s *OssutilCommandSuite) TestListRegionBucketByEndpoint(c *C) {
 
 	// create bucket in shanghai
 	bucketName_shanghai := bucketNamePrefix + randLowStr(10)
-	endpoint_shanghai := "oss-cn-shanghai.aliyuncs.com"
+	endpoint_shanghai := "oss-cn-shanghai." + config.DOMAIN_SUFFIX
 	command = "mb"
 	args = []string{CloudURLToString(bucketName_shanghai, "")}
 	options = OptionMapType{
@@ -110,7 +111,7 @@ func (s *OssutilCommandSuite) TestListRegionBucketByEndpoint(c *C) {
 func (s *OssutilCommandSuite) TestListRegionBucketByConfigFile(c *C) {
 	// create bucket in shenzhen
 	bucketName_shenzhen := bucketNamePrefix + randLowStr(10)
-	endpoint_shenzhen := "oss-cn-shenzhen.aliyuncs.com"
+	endpoint_shenzhen := "oss-cn-shenzhen." + config.DOMAIN_SUFFIX
 	command := "mb"
 	args := []string{CloudURLToString(bucketName_shenzhen, "")}
 	str := ""
@@ -127,7 +128,7 @@ func (s *OssutilCommandSuite) TestListRegionBucketByConfigFile(c *C) {
 
 	// create bucket in shanghai
 	bucketName_shanghai := bucketNamePrefix + randLowStr(10)
-	endpoint_shanghai := "oss-cn-shanghai.aliyuncs.com"
+	endpoint_shanghai := "oss-cn-shanghai." + config.DOMAIN_SUFFIX
 	command = "mb"
 	args = []string{CloudURLToString(bucketName_shanghai, "")}
 	options = OptionMapType{
@@ -142,7 +143,7 @@ func (s *OssutilCommandSuite) TestListRegionBucketByConfigFile(c *C) {
 
 	// create conf
 	confName := "test_file_lrb_" + randLowStr(3)
-	confText := "oss-cn-shenzhen.aliyuncs.com\n" + "oss-cn-shanghai.aliyuncs.com"
+	confText := "oss-cn-shenzhen." + config.DOMAIN_SUFFIX + "\n" + "oss-cn-shanghai." + config.DOMAIN_SUFFIX
 	s.createFile(confName, confText, c)
 
 	// list shenzhen bucket
@@ -247,7 +248,7 @@ func (s *OssutilCommandSuite) TestListRegionBucketHelpInfo(c *C) {
 func (s *OssutilCommandSuite) TestListRegionBucketByConfigFileInvalidEndpoint(c *C) {
 	// create conf
 	confName := "test_file_lrb_" + randLowStr(3)
-	confText := "#oss-cn-shenzhen.aliyuncs.com\n" + "oss-cn-test.aliyuncs.com"
+	confText := "#oss-cn-shenzhen." + config.DOMAIN_SUFFIX + "\n" + "oss-cn-test." + config.DOMAIN_SUFFIX
 	s.createFile(confName, confText, c)
 
 	// list shenzhen bucket

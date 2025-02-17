@@ -79,7 +79,7 @@ func TestConfiguration(t *testing.T) {
 
 	os.Setenv("ACCESS_KEY_ID", "")
 	os.Setenv("ACCESS_KEY_SECRET", "")
-	os.Setenv("ALIBABACLOUD_PROFILE", "test")
+	os.Setenv(ENV_SUFFIX+"_PROFILE", "test")
 	p = cf.GetCurrentProfile(ctx)
 	assert.Equal(t, Profile{Name: "test", Mode: StsToken, OutputFormat: "json", Language: "en"}, p)
 	cf.PutProfile(Profile{Name: "test2", Mode: StsToken, OutputFormat: "json", Language: "en"})
@@ -89,19 +89,19 @@ func TestConfiguration(t *testing.T) {
 	cf.CurrentProfile = "default"
 	p = cf.GetCurrentProfile(ctx)
 	assert.Equal(t, Profile{Name: "test", Mode: StsToken, OutputFormat: "json", Language: "en"}, p)
-	os.Setenv("ALIBABA_CLOUD_PROFILE", "test2")
+	os.Setenv(ENV_SUFFIX+"_CLOUD_PROFILE", "test2")
 	p = cf.GetCurrentProfile(ctx)
 	assert.Equal(t, Profile{Name: "test", Mode: StsToken, OutputFormat: "json", Language: "en"}, p)
-	os.Setenv("ALIBABACLOUD_PROFILE", "")
+	os.Setenv(ENV_SUFFIX+"_PROFILE", "")
 	p = cf.GetCurrentProfile(ctx)
 	assert.Equal(t, Profile{Name: "test2", Mode: StsToken, OutputFormat: "json", Language: "en"}, p)
-	os.Setenv("ALICLOUD_PROFILE", "test")
+	os.Setenv(ENV_SUFFIX+"_PROFILE", "test")
 	p = cf.GetCurrentProfile(ctx)
 	assert.Equal(t, Profile{Name: "test2", Mode: StsToken, OutputFormat: "json", Language: "en"}, p)
-	os.Setenv("ALIBABA_CLOUD_PROFILE", "")
+	os.Setenv(ENV_SUFFIX+"_PROFILE", "")
 	p = cf.GetCurrentProfile(ctx)
 	assert.Equal(t, Profile{Name: "test", Mode: StsToken, OutputFormat: "json", Language: "en"}, p)
-	os.Setenv("ALICLOUD_PROFILE", "")
+	os.Setenv(ENV_SUFFIX+"_PROFILE", "")
 	p = cf.GetCurrentProfile(ctx)
 	assert.Equal(t, Profile{Name: "default", Mode: "", OutputFormat: "json", Language: "en"}, p)
 }
@@ -280,7 +280,7 @@ func TestLoadProfileWithContext(t *testing.T) {
 }
 
 func TestLoadProfileWithContextWhenIGNORE_PROFILE(t *testing.T) {
-	os.Setenv("ALIBABA_CLOUD_IGNORE_PROFILE", "TRUE")
+	os.Setenv(ENV_SUFFIX+"_IGNORE_PROFILE", "TRUE")
 	stdout := new(bytes.Buffer)
 	stderr := new(bytes.Buffer)
 	ctx := cli.NewCommandContext(stdout, stderr)
@@ -296,7 +296,7 @@ func TestLoadProfileWithContextWhenIGNORE_PROFILE(t *testing.T) {
 	assert.Equal(t, "cn-hangzhou", p.RegionId)
 	assert.Equal(t, AK, p.Mode)
 	// reset
-	os.Setenv("ALIBABA_CLOUD_IGNORE_PROFILE", "")
+	os.Setenv(ENV_SUFFIX+"_IGNORE_PROFILE", "")
 }
 
 func TestGetHomePath(t *testing.T) {
@@ -324,10 +324,10 @@ func TestGetProfileName(t *testing.T) {
 	ctx.Flags().Get("profile").SetValue("")
 	name = getProfileName(ctx)
 	assert.Equal(t, name, "") // reset flag
-	os.Setenv("ALIBABA_CLOUD_PROFILE", "profileName")
+	os.Setenv(ENV_SUFFIX+"_PROFILE", "profileName")
 	name = getProfileName(ctx)
 	assert.Equal(t, name, "profileName")
-	os.Setenv("ALIBABA_CLOUD_PROFILE", "") // reset env
+	os.Setenv(ENV_SUFFIX+"_PROFILE", "") // reset env
 }
 
 func TestGetConfigurePath(t *testing.T) {

@@ -2,6 +2,7 @@ package lib
 
 import (
 	"fmt"
+	"github.com/aliyun/aliyun-cli/config"
 	"log"
 	"os"
 	"time"
@@ -38,10 +39,10 @@ func (s *StsTestSuite) TestSendRequest(c *C) {
 func (s *StsTestSuite) TestHandleResponse(c *C) {
 	client := NewClient("", "", "", "")
 
-	body := "{\"RequestId\":\"784B99C1-895F-426C-8E1F-008955D418FB\"," +
-		"\"HostId\":\"sts.aliyuncs.com\"," +
-		"\"Code\":\"NoPermission\"," +
-		"\"Message\":\"Roles may not be assumed by root accounts.\"}"
+	body := fmt.Sprintf("{\"RequestId\":\"784B99C1-895F-426C-8E1F-008955D418FB\","+
+		"\"HostId\":\"%s\","+
+		"\"Code\":\"NoPermission\","+
+		"\"Message\":\"Roles may not be assumed by root accounts.\"}", config.STS_DEFAULT_DOMAIN)
 	resp, err := client.handleResponse([]byte(body), 400)
 	_, isSuc := err.(*ServiceError)
 	c.Assert(isSuc, Equals, true)

@@ -7,6 +7,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"github.com/aliyun/aliyun-cli/config"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -77,9 +78,6 @@ const (
 	// StsAPIVersion sts api version
 	StsAPIVersion = "2015-04-01"
 
-	// // StsHost sts host
-	// StsHost = "https://sts.aliyuncs.com/"
-
 	// TimeFormat time fomrat
 	TimeFormat = "2006-01-02T15:04:05Z"
 	// RespBodyFormat  respone body format
@@ -91,7 +89,7 @@ const (
 )
 
 // StsHost sts host
-var StsHost = "https://sts.aliyuncs.com/"
+var StsHost = "https://" + config.STS_DEFAULT_DOMAIN + "/"
 
 // AssumeRole assume role
 func (c *Client) AssumeRole(tokenTimeout uint, stsEndPoint string) (*Response, error) {

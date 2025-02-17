@@ -191,35 +191,35 @@ func (cp *Profile) OverwriteWithFlags(ctx *cli.Context) {
 	cp.OIDCTokenFile = OIDCTokenFileFlag(ctx.Flags()).GetStringOrDefault(cp.OIDCTokenFile)
 
 	if cp.AccessKeyId == "" {
-		cp.AccessKeyId = util.GetFromEnv("ALIBABA_CLOUD_ACCESS_KEY_ID", "ALIBABACLOUD_ACCESS_KEY_ID", "ALICLOUD_ACCESS_KEY_ID", "ACCESS_KEY_ID")
+		cp.AccessKeyId = util.GetFromEnv(ENV_SUFFIX+"_ACCESS_KEY_ID", "ACCESS_KEY_ID")
 	}
 
 	if cp.AccessKeySecret == "" {
-		cp.AccessKeySecret = util.GetFromEnv("ALIBABA_CLOUD_ACCESS_KEY_SECRET", "ALIBABACLOUD_ACCESS_KEY_SECRET", "ALICLOUD_ACCESS_KEY_SECRET", "ACCESS_KEY_SECRET")
+		cp.AccessKeySecret = util.GetFromEnv(ENV_SUFFIX+"_ACCESS_KEY_SECRET", "ACCESS_KEY_SECRET")
 	}
 
 	if cp.StsToken == "" {
-		cp.StsToken = util.GetFromEnv("ALIBABA_CLOUD_SECURITY_TOKEN", "ALIBABACLOUD_SECURITY_TOKEN", "ALICLOUD_SECURITY_TOKEN", "SECURITY_TOKEN")
+		cp.StsToken = util.GetFromEnv(ENV_SUFFIX+"_SECURITY_TOKEN", "SECURITY_TOKEN")
 	}
 
 	if cp.RegionId == "" {
-		cp.RegionId = util.GetFromEnv("ALIBABA_CLOUD_REGION_ID", "ALIBABACLOUD_REGION_ID", "ALICLOUD_REGION_ID", "REGION_ID", "REGION")
+		cp.RegionId = util.GetFromEnv(ENV_SUFFIX+"_REGION_ID", "REGION_ID", "REGION")
 	}
 
 	if cp.CredentialsURI == "" {
-		cp.CredentialsURI = os.Getenv("ALIBABA_CLOUD_CREDENTIALS_URI")
+		cp.CredentialsURI = os.Getenv(ENV_SUFFIX + "_CREDENTIALS_URI")
 	}
 
 	if cp.OIDCProviderARN == "" {
-		cp.OIDCProviderARN = util.GetFromEnv("ALIBABACLOUD_OIDC_PROVIDER_ARN", "ALIBABA_CLOUD_OIDC_PROVIDER_ARN")
+		cp.OIDCProviderARN = util.GetFromEnv(ENV_SUFFIX + "_OIDC_PROVIDER_ARN")
 	}
 
 	if cp.OIDCTokenFile == "" {
-		cp.OIDCTokenFile = util.GetFromEnv("ALIBABACLOUD_OIDC_TOKEN_FILE", "ALIBABA_CLOUD_OIDC_TOKEN_FILE")
+		cp.OIDCTokenFile = util.GetFromEnv(ENV_SUFFIX + "_OIDC_TOKEN_FILE")
 	}
 
 	if cp.RamRoleArn == "" {
-		cp.RamRoleArn = util.GetFromEnv("ALIBABACLOUD_ROLE_ARN", "ALIBABA_CLOUD_ROLE_ARN")
+		cp.RamRoleArn = util.GetFromEnv(ENV_SUFFIX + "_ROLE_ARN")
 	}
 
 	AutoModeRecognition(cp)
@@ -259,9 +259,9 @@ func (cp *Profile) ValidateAK() error {
 
 func getSTSEndpoint(regionId string) string {
 	if regionId != "" {
-		return fmt.Sprintf("sts.%s.aliyuncs.com", regionId)
+		return fmt.Sprintf("sts.%s.%s", regionId, DOMAIN_SUFFIX)
 	}
-	return "sts.aliyuncs.com"
+	return STS_DEFAULT_DOMAIN
 }
 
 func (cp *Profile) GetCredential(ctx *cli.Context, proxyHost *string) (cred credentialsv2.Credential, err error) {
@@ -395,7 +395,7 @@ func (cp *Profile) GetCredential(ctx *cli.Context, proxyHost *string) (cred cred
 		uri := cp.CredentialsURI
 
 		if uri == "" {
-			uri = os.Getenv("ALIBABA_CLOUD_CREDENTIALS_URI")
+			uri = os.Getenv(ENV_SUFFIX + "_CREDENTIALS_URI")
 		}
 
 		if uri == "" {

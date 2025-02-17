@@ -154,4 +154,3 @@ func TestParser4(t *testing.T) {
 
 // aliyun oss cp -r oss-url local-path
 // aliyun oss cp -r local-path oss-url
-// aliyun oss -e oss-cn-beijing.aliyuncs.com ls oss://bucket-name

@@ -2,6 +2,7 @@ package lib
 
 import (
 	"fmt"
+	"github.com/aliyun/aliyun-cli/config"
 	"io/ioutil"
 	"os"
 	"runtime"
@@ -33,7 +34,6 @@ func (s *OssutilCommandSuite) probeDownloadUrl(c *C, downloadFile string, repeat
 	}
 
 	// get object url
-	// http://test-probe.oss-cn-shenzhen.aliyuncs.com/newempty1.jpg
 	downUrl := "http://" + bucketName + "." + tripEndpoint + "/" + object
 
 	var pbArgs []string
@@ -62,7 +62,7 @@ func (s *OssutilCommandSuite) probeDownloadUrl(c *C, downloadFile string, repeat
 
 	// repeate download
 	if repeatDown {
-		probeCommand.pbOption.netAddr = "www.aliyun.com"
+		probeCommand.pbOption.netAddr = config.DEFAULT_PROBE_DOMAIN
 		_, err = cm.RunCommand("probe", pbArgs, options)
 		c.Assert(err, IsNil)
 		c.Assert((probeCommand.pbOption.dlFilePath == ""), Equals, false)
@@ -158,7 +158,7 @@ func (s *OssutilCommandSuite) probeDownloadWithParameter(c *C, object string, do
 	}
 
 	if repeatDown {
-		probeCommand.pbOption.netAddr = "www.aliyun.com"
+		probeCommand.pbOption.netAddr = config.DEFAULT_PROBE_DOMAIN
 		_, err = cm.RunCommand("probe", pbArgs, options)
 		c.Assert(err, IsNil)
 		c.Assert((probeCommand.pbOption.dlFilePath == ""), Equals, false)
@@ -333,7 +333,6 @@ func (s *OssutilCommandSuite) TestProbeDownUrlError(c *C) {
 	}
 
 	// get object url
-	// http://test-probe.oss-cn-shenzhen.aliyuncs.com/newempty1.jpg
 	downUrl := "http://" + bucketName + "." + tripEndpoint + "/" + object
 
 	pbArgs := []string{}

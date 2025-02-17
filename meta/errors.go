@@ -15,6 +15,7 @@ package meta
 
 import (
 	"fmt"
+	"github.com/aliyun/aliyun-cli/config"
 	"strings"
 )
 
@@ -28,7 +29,7 @@ func (e *InvalidEndpointError) Error() string {
 	s := fmt.Sprintf("unknown endpoint for region %s", e.Region)
 	if e.Product != nil {
 		//	s = s + fmt", try add --endpoint %s", e.Suggestion
-		s = s + "\n  you need to add --endpoint xxx.aliyuncs.com"
+		s = s + "\n  you need to add --endpoint xxx." + config.DOMAIN_SUFFIX
 		if e.LocationError != nil {
 			s = s + fmt.Sprintf("\n  LC_Error: %s", e.LocationError.Error())
 		}

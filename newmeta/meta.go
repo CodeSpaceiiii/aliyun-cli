@@ -7,27 +7,6 @@ import (
 	aliyunopenapimeta "github.com/aliyun/aliyun-cli/aliyun-openapi-meta"
 )
 
-// {
-// 	"products": [
-// 	  {
-// 		"code": "ARMS",
-// 		"name": "Application Real-Time Monitoring Service",
-// 		"version": "2019-08-08",
-// 		"endpointType": "regional",
-// 		"endpoints": {
-// 		  "us-west-1": {
-// 			"regionId": "us-west-1",
-// 			"regionName": "US (Silicon Valley)",
-// 			"areaId": "europeAmerica",
-// 			"areaName": "Europe & Americas",
-// 			"public": "arms.us-west-1.aliyuncs.com",
-// 			"vpc": "arms-vpc.us-east-1.aliyuncs.com"
-// 		  }
-// 		}
-// 	  }
-// 	]
-// }
-
 type ProductSet struct {
 	Products []Product `json:"products"`
 }
@@ -49,18 +28,6 @@ type Endpoint struct {
 	VPC      string `json:"vpc"`
 }
 
-// {
-// 	"version": "2017-09-12",
-// 	"style": "rpc",
-// 	"apis": {
-// 	  "ActiveFlowLog": {
-// 		"title": "ActiveFlowLog",
-// 		"summary": "Enables a flow log. After the flow log is enabled, the system collects traffic information about a specified resource.",
-// 		"deprecated": false
-// 	  }
-// 	}
-// }
-
 type Version struct {
 	Version string         `json:"version"`
 	Style   string         `json:"style"`
@@ -72,26 +39,6 @@ type API struct {
 	Summary    string `json:"summary"`
 	Deprecated bool   `json:"deprecated"`
 }
-
-// {
-// 	"name": "AddEntriesToAcl",
-// 	"security": [
-// 		"AK"
-// 	],
-// 	"deprecated": false,
-// 	"protocol": "HTTP|HTTPS",
-// 	"method": "GET|POST",
-// 	"pathPattern": "",
-// 	"parameters": [
-// 	  {
-// 		"name": "AclEntries",
-// 		"description": "The IP entries that you want to add. You can add up to 20 IP entries in each call.",
-// 		"position": "Query",
-// 		"type": "Array",
-// 		"required": true
-// 	  }
-// 	]
-//  }
 
 type APIDetail struct {
 	Name        string             `json:"name"`

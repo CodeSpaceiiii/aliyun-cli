@@ -1,13 +1,5 @@
-# Alibaba Cloud OSSUTIL
- 
-[![GitHub Version](https://badge.fury.io/gh/aliyun%2Fossutil.svg)](https://badge.fury.io/gh/aliyun%2Fossutil)
-[![Build Status](https://travis-ci.org/aliyun/ossutil.svg?branch=master)](https://travis-ci.org/aliyun/ossutil)
-[![Coverage Status](https://coveralls.io/repos/github/aliyun/ossutil/badge.svg?branch=master)](https://coveralls.io/github/aliyun/ossutil?branch=master)
-
-### [README of Chinese](https://github.com/aliyun/ossutil/blob/master/README-CN.md)
-
 ## About
-- This tool is developed with Go and built on the official GO SDK of OSS [Alibaba Cloud Object Storage Service](http://www.aliyun.com/product/oss/).
+- This tool is developed with Go and built on the official GO SDK of OSS.
 - OSS is a cloud storage service provided by Alibaba Cloud, featuring massive capacity, security, low cost, and high reliability.
 - OSS can store any type of files. It applies to various websites, development enterprises and developers.
 - This tool aims to provide a convenient-to-use command line for users to manage data in OSS.
@@ -78,13 +70,6 @@ You can use `./ossutil help cmd` to view the help documentation for the command 
 - Enter the *src* directory under the Go project directory and modify the endpoint, AccessKeyId, AccessKeySecret and STSToken configuration items in the *github.com/aliyun/ossutil/lib/command_test.go*.
 - Run `go test` under the *lib* directory.
 
-## Contact us
-- [Alibaba Cloud OSS official website](http://oss.aliyun.com).
-- [Alibaba Cloud OSS official forum](http://bbs.aliyun.com).
-- [Alibaba Cloud OSS official documentation center](http://www.aliyun.com/product/oss#Docs).
-
-## Author
-- [Ting Zhang](https://github.com/dengwu12)
 
 ## License
 - [MIT](https://github.com/aliyun/ossutil/blob/master/LICENSE)

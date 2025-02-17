@@ -133,14 +133,14 @@ func ParseAndGetEndpoint(ctx *cli.Context, args []string) (string, error) {
 		for i, arg := range args {
 			if arg == "--region" {
 				if i+1 < len(args) {
-					return "oss-" + args[i+1] + ".aliyuncs.com", nil
+					return "oss-" + args[i+1] + "." + config.DOMAIN_SUFFIX, nil
 				}
 			}
 		}
 	}
 	// check endpoint from flags
 	if ep, ok := ctx.Flags().GetValue("endpoint"); !ok {
-		return "oss-" + profile.RegionId + ".aliyuncs.com", nil
+		return "oss-" + profile.RegionId + "." + config.DOMAIN_SUFFIX, nil
 	} else {
 		return ep, nil
 	}

@@ -3,6 +3,7 @@ package lib
 import (
 	"bufio"
 	"fmt"
+	"github.com/aliyun/aliyun-cli/config"
 	"io"
 	"os"
 	"strings"
@@ -27,7 +28,7 @@ var specChineseListRegionBucket = SpecText{
 	sampleText: ` 
     1) ossutil lrb conf_file
        
-    2) ossutil lrb -e oss-cn-shenzhen.aliyuncs.com
+    2) ossutil lrb -e oss-cn-shenzhen.` + config.DOMAIN_SUFFIX + `
 
     3) ossutil lrb
 `,
@@ -51,7 +52,7 @@ var specEnglishListRegionBucket = SpecText{
 	sampleText: ` 
     1) ossutil lrb conf_file
        
-    2) ossutil lrb -e oss-cn-shenzhen.aliyuncs.com
+    2) ossutil lrb -e oss-cn-shenzhen` + config.DOMAIN_SUFFIX + `
 
     3) ossutil lrb
 `,

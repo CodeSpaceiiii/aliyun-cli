@@ -2,6 +2,7 @@ package lib
 
 import (
 	"fmt"
+	"github.com/aliyun/aliyun-cli/config"
 	"io/ioutil"
 	"os"
 	"strings"
@@ -69,7 +70,7 @@ var specChineseBucketWebSite = SpecText{
                       <HttpErrorCodeReturnedEquals>404</HttpErrorCodeReturnedEquals>
                       <IncludeHeader>
                         <Key>host</Key>
-                        <Equals>test.oss-cn-beijing-internal.aliyuncs.com</Equals>
+                        <Equals>test.oss-cn-beijing-internal.` + config.DOMAIN_SUFFIX + `</Equals>
                       </IncludeHeader>
                     </Condition>
                     <Redirect>
@@ -170,7 +171,7 @@ Usage:
                       <HttpErrorCodeReturnedEquals>404</HttpErrorCodeReturnedEquals>
                       <IncludeHeader>
                         <Key>host</Key>
-                        <Equals>test.oss-cn-beijing-internal.aliyuncs.com</Equals>
+                        <Equals>test.oss-cn-beijing-internal.` + config.DOMAIN_SUFFIX + `</Equals>
                       </IncludeHeader>
                     </Condition>
                     <Redirect>
