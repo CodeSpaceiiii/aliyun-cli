@@ -16,6 +16,7 @@ package openapi
 import (
 	"github.com/aliyun/aliyun-cli/meta"
 	"github.com/aliyun/aliyun-cli/newmeta"
+	"github.com/aliyun/aliyun-cli/setting"
 	"github.com/stretchr/testify/assert"
 
 	"bytes"
@@ -45,7 +46,7 @@ func TestLibrary_PrintProductUsage(t *testing.T) {
 	library := NewLibrary(w, "en")
 	library.builtinRepo = getRepository()
 	err := library.PrintProductUsage("aos", true)
-	assert.Equal(t, "'aos' is not a valid command or product. See `aliyun help`.", err.Error())
+	assert.Equal(t, "'aos' is not a valid command or product. See `"+setting.CloudMarker+" help`.", err.Error())
 
 	err = library.PrintProductUsage("ecs", true)
 	assert.Nil(t, err)
@@ -60,7 +61,7 @@ func TestLibrary_PrintApiUsage(t *testing.T) {
 	library := NewLibrary(w, "en")
 	library.builtinRepo = getRepository()
 	err := library.PrintApiUsage("aos", "DescribeRegions")
-	assert.Equal(t, "'aos' is not a valid command or product. See `aliyun help`.", err.Error())
+	assert.Equal(t, "'aos' is not a valid command or product. See `"+setting.CloudMarker+" help`.", err.Error())
 
 	err = library.PrintApiUsage("ecs", "DescribeRegions")
 	assert.Nil(t, err)

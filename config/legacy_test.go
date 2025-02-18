@@ -14,6 +14,7 @@
 package config
 
 import (
+	"github.com/aliyun/aliyun-cli/setting"
 	"os"
 	"runtime"
 	"testing"
@@ -34,14 +35,14 @@ func TestMigrateCredentials(t *testing.T) {
 	assert.Nil(t, err)
 	_, err = test.WriteString(`
 	[DEFAULT]
-	aliyun_access_key_id = DEFAULT_aliyun_access_key_id
-	aliyun_access_key_secret = DEFAULT_aliyun_access_key_secret
+	` + setting.CloudMarker + `_access_key_id = DEFAULT_aliyun_access_key_id
+	` + setting.CloudMarker + `_access_key_secret = DEFAULT_aliyun_access_key_secret
 	[default]
-	aliyun_access_key_id = default_aliyun_access_key_id
-	aliyun_access_key_secret = default_aliyun_access_key_secret
+	` + setting.CloudMarker + `_access_key_id = default_aliyun_access_key_id
+	` + setting.CloudMarker + `_access_key_secret = default_aliyun_access_key_secret
 	[profile aaa]
-	aliyun_access_key_id = sdf
-	aliyun_access_key_secret = ddf
+	` + setting.CloudMarker + `_access_key_id = sdf
+	` + setting.CloudMarker + `_access_key_secret = ddf
 	`)
 	assert.Nil(t, err)
 	test.Close()
@@ -76,16 +77,16 @@ func TestMigrateConfigure(t *testing.T) {
 	assert.Nil(t, err)
 	test.WriteString(`
 	[DEFAULT]
-	aliyun_access_key_id = DEFAULT_aliyun_access_key_id
-	aliyun_access_key_secret = DEFAULT_aliyun_access_key_secret
+	` + setting.CloudMarker + `_access_key_id = DEFAULT_aliyun_access_key_id
+	` + setting.CloudMarker + `_access_key_secret = DEFAULT_aliyun_access_key_secret
 	region = cn-hangzhou
 	[default]
-	aliyun_access_key_id = default_aliyun_access_key_id
-	aliyun_access_key_secret = default_aliyun_access_key_secret
+	` + setting.CloudMarker + `_access_key_id = default_aliyun_access_key_id
+	` + setting.CloudMarker + `_access_key_secret = default_aliyun_access_key_secret
 	region = cn-hangzhou
 	[profile aaa]
-	aliyun_access_key_id = sdf
-	aliyun_access_key_secret = ddf
+	` + setting.CloudMarker + `_access_key_id = sdf
+	` + setting.CloudMarker + `_access_key_secret = ddf
 	`)
 
 	test.Close()
@@ -107,7 +108,7 @@ func TestMigrateConfigure(t *testing.T) {
 func TestMigrateLegacyConfiguration(t *testing.T) {
 	orighookGetHomePath := hookGetHomePath
 	defer func() {
-		os.RemoveAll("./.aliyuncli")
+		os.RemoveAll("./." + setting.CloudMarker + "cli")
 		hookGetHomePath = orighookGetHomePath
 	}()
 
@@ -117,21 +118,21 @@ func TestMigrateLegacyConfiguration(t *testing.T) {
 		}
 	}
 
-	err := os.Mkdir("./.aliyuncli", os.ModePerm)
+	err := os.Mkdir("./."+setting.CloudMarker+"cli", os.ModePerm)
 	assert.Nil(t, err)
 
-	test, err := os.Create("./.aliyuncli/credentials")
+	test, err := os.Create("./." + setting.CloudMarker + "cli/credentials")
 	assert.Nil(t, err)
 	_, err = test.WriteString(`
 	[DEFAULT]
-	aliyun_access_key_id = DEFAULT_aliyun_access_key_id
-	aliyun_access_key_secret = DEFAULT_aliyun_access_key_secret
+	` + setting.CloudMarker + `_access_key_id = DEFAULT_aliyun_access_key_id
+	` + setting.CloudMarker + `_access_key_secret = DEFAULT_aliyun_access_key_secret
 	[default]
-	aliyun_access_key_id = default_aliyun_access_key_id
-	aliyun_access_key_secret = default_aliyun_access_key_secret
+	` + setting.CloudMarker + `_access_key_id = default_aliyun_access_key_id
+	` + setting.CloudMarker + `_access_key_secret = default_aliyun_access_key_secret
 	[profile aaa]
-	aliyun_access_key_id = sdf
-	aliyun_access_key_secret = ddf
+	` + setting.CloudMarker + `_access_key_id = sdf
+	` + setting.CloudMarker + `_access_key_secret = ddf
 	`)
 	assert.Nil(t, err)
 	test.Close()

@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//	http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,6 +15,7 @@ package openapi
 
 import (
 	"fmt"
+	"github.com/aliyun/aliyun-cli/setting"
 	"strings"
 
 	"github.com/aliyun/aliyun-cli/cli"
@@ -28,7 +29,7 @@ type InvalidProductError struct {
 }
 
 func (e *InvalidProductError) Error() string {
-	return fmt.Sprintf("'%s' is not a valid command or product. See `aliyun help`.", strings.ToLower(e.Code))
+	return fmt.Sprintf("'%s' is not a valid command or product. See `"+setting.CloudMarker+" help`.", strings.ToLower(e.Code))
 }
 
 func (e *InvalidProductError) GetSuggestions() []string {
@@ -46,7 +47,7 @@ type InvalidApiError struct {
 }
 
 func (e *InvalidApiError) Error() string {
-	return fmt.Sprintf("'%s' is not a valid api. See `aliyun help %s`.", e.Name, e.product.GetLowerCode())
+	return fmt.Sprintf("'%s' is not a valid api. See `"+setting.CloudMarker+" help %s`.", e.Name, e.product.GetLowerCode())
 }
 
 func (e *InvalidApiError) GetSuggestions() []string {
@@ -65,8 +66,8 @@ type InvalidParameterError struct {
 }
 
 func (e *InvalidParameterError) Error() string {
-	return fmt.Sprintf("'--%s' is not a valid parameter or flag. See `aliyun help %s %s`.",
-		e.Name, e.api.Product.GetLowerCode(), e.api.Name)
+	return fmt.Sprintf("'--%s' is not a valid parameter or flag. See `%s help %s %s`.",
+		e.Name, setting.CloudMarker, e.api.Product.GetLowerCode(), e.api.Name)
 }
 
 func (e *InvalidParameterError) GetSuggestions() []string {

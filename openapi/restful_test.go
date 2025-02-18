@@ -15,6 +15,7 @@ package openapi
 
 import (
 	"bytes"
+	"github.com/aliyun/aliyun-cli/setting"
 
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk"
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/requests"
@@ -97,7 +98,7 @@ func TestRestfulInvoker_Prepare(t *testing.T) {
 	ctx.UnknownFlags().AddByName("TestFlag")
 	ctx.UnknownFlags().Get("TestFlag").SetValue("testFlagValue")
 	err = a.Prepare(ctx)
-	assert.EqualError(t, err, "'--TestFlag' is not a valid parameter or flag. See `aliyun help cs DescribeClusterUserKubeconfig`.")
+	assert.EqualError(t, err, "'--TestFlag' is not a valid parameter or flag. See `"+setting.CloudMarker+" help cs DescribeClusterUserKubeconfig`.")
 }
 
 func TestRestfulInvoker_Call(t *testing.T) {

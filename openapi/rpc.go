@@ -15,6 +15,7 @@ package openapi
 
 import (
 	"fmt"
+	"github.com/aliyun/aliyun-cli/setting"
 	"os"
 	"strings"
 
@@ -93,7 +94,7 @@ func (a *RpcInvoker) Prepare(ctx *cli.Context) error {
 
 	if err != nil {
 		return cli.NewErrorWithTip(err,
-			"use `aliyun %s %s --help` to get more information",
+			"use `"+setting.CloudMarker+" %s %s --help` to get more information",
 			api.Product.GetLowerCode(), api.Name)
 	}
 	return nil

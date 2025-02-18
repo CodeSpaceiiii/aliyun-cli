@@ -15,6 +15,7 @@ package config
 
 import (
 	"bytes"
+	"github.com/aliyun/aliyun-cli/setting"
 	"os"
 	"runtime"
 	"strings"
@@ -161,7 +162,7 @@ func TestDoConfigure(t *testing.T) {
 		"-----------------------------------------------\n"+
 		"!!! Configure Failed please configure again !!!\n"+
 		"-----------------------------------------------\n"+
-		"AccessKeyId/AccessKeySecret is empty! run `aliyun configure` first\n"+
+		"AccessKeyId/AccessKeySecret is empty! run `"+setting.CloudMarker+" configure` first\n"+
 		"-----------------------------------------------\n"+
 		"!!! Configure Failed please configure again !!!\n"+
 		"-----------------------------------------------\n", w.String())

@@ -455,12 +455,12 @@ func TestGetCredentialByAK(t *testing.T) {
 	actual.AccessKeyId = "accessKeyId"
 	credential, err := actual.GetCredential(newCtx(), nil)
 	assert.Nil(t, credential)
-	assert.EqualError(t, err, "AccessKeyId/AccessKeySecret is empty! run `aliyun configure` first")
+	assert.EqualError(t, err, "AccessKeyId/AccessKeySecret is empty! run `"+setting.CloudMarker+" configure` first")
 
 	actual.AccessKeySecret = "accessKeySecret"
 	credential, err = actual.GetCredential(newCtx(), nil)
 	assert.Nil(t, credential)
-	assert.EqualError(t, err, "default RegionId is empty! run `aliyun configure` first")
+	assert.EqualError(t, err, "default RegionId is empty! run `"+setting.CloudMarker+" configure` first")
 
 	actual.RegionId = "cn-hangzhou"
 	credential, err = actual.GetCredential(newCtx(), nil)

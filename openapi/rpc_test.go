@@ -58,7 +58,7 @@ func TestRpcInvoker_Prepare(t *testing.T) {
 	ctx.UnknownFlags().Add(NewBodyFlag())
 	err := a.Prepare(ctx)
 	assert.NotNil(t, err)
-	assert.Equal(t, "'--body' is not a valid parameter or flag. See `"+setting.CloudMarker+"` help ecs ecs`.", err.Error())
+	assert.Equal(t, "'--body' is not a valid parameter or flag. See `"+setting.CloudMarker+" help ecs ecs`.", err.Error())
 
 	a.api.Parameters = []meta.Parameter{
 		{

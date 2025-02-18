@@ -15,6 +15,7 @@ package openapi
 
 import (
 	"bytes"
+	"github.com/aliyun/aliyun-cli/setting"
 	"strings"
 	"testing"
 
@@ -76,7 +77,7 @@ func Test_main(t *testing.T) {
 	profileflag.SetAssigned(false)
 	err = command.main(ctx, args)
 	assert.NotNil(t, err)
-	assert.Equal(t, "'test' is not a valid command or product. See `aliyun help`.", err.Error())
+	assert.Equal(t, "'test' is not a valid command or product. See `"+setting.CloudMarker+" help`.", err.Error())
 
 	ctx.Flags().Get("force").SetAssigned(true)
 	ctx.Flags().Get("version").SetAssigned(true)
@@ -100,7 +101,7 @@ func Test_main(t *testing.T) {
 	args = []string{"aos", "test2"}
 	err = command.main(ctx, args)
 	assert.NotNil(t, err)
-	assert.Equal(t, "'aos' is not a valid command or product. See `aliyun help`.", err.Error())
+	assert.Equal(t, "'aos' is not a valid command or product. See `"+setting.CloudMarker+" help`.", err.Error())
 
 	args = []string{"test", "test2", "test1"}
 	err = command.main(ctx, args)
@@ -241,12 +242,12 @@ func Test_help(t *testing.T) {
 	args = []string{"test"}
 	err = command.help(ctx, args)
 	assert.NotNil(t, err)
-	assert.Equal(t, "'test' is not a valid command or product. See `aliyun help`.", err.Error())
+	assert.Equal(t, "'test' is not a valid command or product. See `"+setting.CloudMarker+" help`.", err.Error())
 
 	args = []string{"test", "test0"}
 	err = command.help(ctx, args)
 	assert.NotNil(t, err)
-	assert.Equal(t, "'test' is not a valid command or product. See `aliyun help`.", err.Error())
+	assert.Equal(t, "'test' is not a valid command or product. See `"+setting.CloudMarker+" help`.", err.Error())
 
 	args = []string{"test", "test0", "test1"}
 	err = command.help(ctx, args)

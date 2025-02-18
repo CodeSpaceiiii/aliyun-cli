@@ -273,12 +273,12 @@ func (cp *Profile) GetCredential(ctx *cli.Context, proxyHost *string) (cred cred
 	switch cp.Mode {
 	case AK:
 		if cp.AccessKeyId == "" || cp.AccessKeySecret == "" {
-			err = fmt.Errorf("AccessKeyId/AccessKeySecret is empty! run `aliyun configure` first")
+			err = fmt.Errorf("AccessKeyId/AccessKeySecret is empty! run `%s configure` first", setting.CloudMarker)
 			return
 		}
 
 		if cp.RegionId == "" {
-			err = fmt.Errorf("default RegionId is empty! run `aliyun configure` first")
+			err = fmt.Errorf("default RegionId is empty! run `%s configure` first", setting.CloudMarker)
 			return
 		}
 

@@ -60,7 +60,7 @@ func TestZshInstaller(t *testing.T) {
 	var z zshInstaller
 	//GetName
 	assert.Equal(t, "zsh", z.GetName())
-	assert.Equal(t, "complete -o nospace -F oss aliyun", z.cmd(setting.CloudMarker, "oss"))
+	assert.Equal(t, "complete -o nospace -F oss "+setting.CloudMarker, z.cmd(setting.CloudMarker, "oss"))
 
 	//Install
 	err := createFile("test.txt", "ecs")

@@ -11,6 +11,6 @@ const (
 	CLI_NAME_CN          = "EA134 CLI命令行工具"
 	DEFAULT_PROBE_DOMAIN = "www.usa.gov"
 	HOME_PAGE            = "https://www.alibabacloud.com"
-	USER_AGENT           = "Aliyun-CLI"
-	ENV_SUFFIX           = "ALIBABA_CLOUD"
+	USER_AGENT           = "EA134-CLI"
+	ENV_SUFFIX           = "EA134_CLOUD"
 )

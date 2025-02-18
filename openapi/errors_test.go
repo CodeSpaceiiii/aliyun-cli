@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//	http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,6 +14,7 @@
 package openapi
 
 import (
+	"github.com/aliyun/aliyun-cli/setting"
 	"strings"
 	"testing"
 
@@ -27,7 +28,7 @@ func TestInvalidProductError_Error(t *testing.T) {
 		Code: "ecs",
 	}
 	str := err.Error()
-	assert.Equal(t, "'ecs' is not a valid command or product. See `aliyun help`.", str)
+	assert.Equal(t, "'ecs' is not a valid command or product. See `"+setting.CloudMarker+" help`.", str)
 }
 
 func TestInvalidProductError_GetSuggestions(t *testing.T) {
@@ -56,7 +57,7 @@ func TestInvalidApiError_Error(t *testing.T) {
 		},
 	}
 	str := err.Error()
-	assert.Equal(t, "'describeregion' is not a valid api. See `aliyun help ecs`.", str)
+	assert.Equal(t, "'describeregion' is not a valid api. See `"+setting.CloudMarker+" help ecs`.", str)
 }
 
 func TestInvalidApiError_GetSuggestions(t *testing.T) {
@@ -83,7 +84,7 @@ func TestInvalidParameterError_Error(t *testing.T) {
 		},
 	}
 	str := err.Error()
-	assert.Equal(t, "'--ak' is not a valid parameter or flag. See `aliyun help ecs describeregion`.", str)
+	assert.Equal(t, "'--ak' is not a valid parameter or flag. See `"+setting.CloudMarker+" help ecs describeregion`.", str)
 }
 
 func TestInvalidParameterError_GetSuggestions(t *testing.T) {
