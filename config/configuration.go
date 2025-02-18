@@ -25,7 +25,7 @@ import (
 )
 
 const (
-	configPath               = "/.aliyun"
+	configPath               = "/." + setting.CloudMarker
 	configFile               = "config.json"
 	DefaultConfigProfileName = "default"
 )

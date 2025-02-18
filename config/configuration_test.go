@@ -155,7 +155,7 @@ func TestHomePath(t *testing.T) {
 func TestGetConfigPath(t *testing.T) {
 	orighookGetHomePath := hookGetHomePath
 	defer func() {
-		os.RemoveAll("./.aliyun")
+		os.RemoveAll("./." + setting.CloudMarker)
 		hookGetHomePath = orighookGetHomePath
 	}()
 	hookGetHomePath = func(fn func() string) func() string {
@@ -163,7 +163,7 @@ func TestGetConfigPath(t *testing.T) {
 			return "."
 		}
 	}
-	assert.Equal(t, "./.aliyun", GetConfigPath())
+	assert.Equal(t, "./."+setting.CloudMarker, GetConfigPath())
 }
 
 func TestNewConfigFromBytes(t *testing.T) {
@@ -202,7 +202,7 @@ func TestNewConfigFromBytes(t *testing.T) {
 func TestSaveConfiguration(t *testing.T) {
 	orighookGetHomePath := hookGetHomePath
 	defer func() {
-		os.RemoveAll("./.aliyun")
+		os.RemoveAll("./." + setting.CloudMarker)
 		hookGetHomePath = orighookGetHomePath
 	}()
 	hookGetHomePath = func(fn func() string) func() string {
@@ -226,7 +226,7 @@ func TestSaveConfiguration(t *testing.T) {
 func TestLoadConfiguration(t *testing.T) {
 	orighookGetHomePath := hookGetHomePath
 	defer func() {
-		os.RemoveAll("./.aliyun")
+		os.RemoveAll("./." + setting.CloudMarker)
 		hookGetHomePath = orighookGetHomePath
 	}()
 	hookGetHomePath = func(fn func() string) func() string {
@@ -335,7 +335,7 @@ func TestGetConfigurePath(t *testing.T) {
 	AddFlags(ctx.Flags())
 	// default case: no flag, no env
 	p := getConfigurePath(ctx)
-	assert.Contains(t, p, ".aliyun/config.json")
+	assert.Contains(t, p, "."+setting.CloudMarker+"/config.json")
 
 	// case 1: with flag
 	ctx.Flags().Get("config-path").SetAssigned(true)
