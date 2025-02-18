@@ -16,6 +16,7 @@ package cli
 import (
 	"bytes"
 	"errors"
+	"github.com/aliyun/aliyun-cli/setting"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -36,21 +37,21 @@ func TestBashInstaller(t *testing.T) {
 	var bi bashInstaller
 	//GetName & cmd
 	assert.Equal(t, "bash", bi.GetName())
-	assert.Equal(t, "complete -C oss aliyun", bi.cmd("aliyun", "oss"))
+	assert.Equal(t, "complete -C oss "+setting.CloudMarker, bi.cmd(setting.CloudMarker, "oss"))
 
 	//Install
 	err := createFile("test.txt", "ecs")
 	assert.Nil(t, err)
 	bi.rc = "test.txt"
-	err = bi.Install("aliyun", "oss")
+	err = bi.Install(setting.CloudMarker, "oss")
 	assert.Nil(t, err)
-	err = bi.Install("aliyun", "oss")
+	err = bi.Install(setting.CloudMarker, "oss")
 	assert.EqualError(t, err, "already installed in test.txt")
 
 	//Uninstall
-	err = bi.Uninstall("oss", "aliyun")
+	err = bi.Uninstall("oss", setting.CloudMarker)
 	assert.EqualError(t, err, "does not installed in test.txt")
-	err = bi.Uninstall("aliyun", "oss")
+	err = bi.Uninstall(setting.CloudMarker, "oss")
 	assert.Nil(t, err)
 	os.Remove("test.txt")
 }
@@ -59,20 +60,20 @@ func TestZshInstaller(t *testing.T) {
 	var z zshInstaller
 	//GetName
 	assert.Equal(t, "zsh", z.GetName())
-	assert.Equal(t, "complete -o nospace -F oss aliyun", z.cmd("aliyun", "oss"))
+	assert.Equal(t, "complete -o nospace -F oss aliyun", z.cmd(setting.CloudMarker, "oss"))
 
 	//Install
 	err := createFile("test.txt", "ecs")
 	assert.Nil(t, err)
 	z.rc = "test.txt"
-	err = z.Install("aliyun", "oss")
+	err = z.Install(setting.CloudMarker, "oss")
 	assert.Nil(t, err)
-	err = z.Install("aliyun", "oss")
+	err = z.Install(setting.CloudMarker, "oss")
 	assert.EqualError(t, err, "already installed in test.txt")
 
 	//Uninstall
-	assert.Nil(t, z.Uninstall("aliyun", "oss"))
-	assert.EqualError(t, z.Uninstall("aliyun", "oss"), "does not installed in test.txt")
+	assert.Nil(t, z.Uninstall(setting.CloudMarker, "oss"))
+	assert.EqualError(t, z.Uninstall(setting.CloudMarker, "oss"), "does not installed in test.txt")
 	os.Remove("test.txt")
 }
 
@@ -117,9 +118,9 @@ func TestNewAutoCompleteCommand(t *testing.T) {
 		Usage: "auto-completion [--uninstall]",
 		Run: func(ctx *Context, args []string) error {
 			if uninstallFlag.IsAssigned() {
-				uninstallCompletion(ctx, "aliyun")
+				uninstallCompletion(ctx, setting.CloudMarker)
 			} else {
-				installCompletion(ctx, "aliyun")
+				installCompletion(ctx, setting.CloudMarker)
 			}
 			return nil
 		},
@@ -149,6 +150,6 @@ func TestUninstallCompletion(t *testing.T) {
 	w := new(bytes.Buffer)
 	stderr := new(bytes.Buffer)
 	ctx := NewCommandContext(w, stderr)
-	uninstallCompletion(ctx, "aliyun")
+	uninstallCompletion(ctx, setting.CloudMarker)
 	assert.Equal(t, "\x1b[1;31mcan't get binary path path error\x1b[0m", stderr.String())
 }

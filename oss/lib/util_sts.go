@@ -7,7 +7,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/aliyun/aliyun-cli/config"
+	"github.com/aliyun/aliyun-cli/setting"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -89,7 +89,7 @@ const (
 )
 
 // StsHost sts host
-var StsHost = "https://" + config.STS_DEFAULT_DOMAIN + "/"
+var StsHost = "https://" + setting.STS_DEFAULT_DOMAIN + "/"
 
 // AssumeRole assume role
 func (c *Client) AssumeRole(tokenTimeout uint, stsEndPoint string) (*Response, error) {

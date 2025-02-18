@@ -17,6 +17,7 @@ import (
 	"embed"
 	"encoding/json"
 	"fmt"
+	"github.com/aliyun/aliyun-cli/setting"
 	"os"
 	"path"
 	"strings"
@@ -45,10 +46,10 @@ func Main(args []string) {
 
 	// create root command
 	rootCmd := &cli.Command{
-		Name:              config.CloudMarker,
-		Short:             i18n.T(config.CLI_NAME_EN+" Version "+cli.Version, config.CLI_NAME_CN+" "+cli.Version),
-		Usage:             config.CloudMarker + " <product> <operation> [--parameter1 value1 --parameter2 value2 ...]",
-		Sample:            config.CloudMarker + " ecs DescribeRegions",
+		Name:              setting.CloudMarker,
+		Short:             i18n.T(setting.CLI_NAME_EN+" Version "+cli.Version, setting.CLI_NAME_CN+" "+cli.Version),
+		Usage:             setting.CloudMarker + " <product> <operation> [--parameter1 value1 --parameter2 value2 ...]",
+		Sample:            setting.CloudMarker + " ecs DescribeRegions",
 		EnableUnknownFlag: true,
 	}
 

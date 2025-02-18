@@ -15,6 +15,7 @@ package config
 
 import (
 	"bytes"
+	"github.com/aliyun/aliyun-cli/setting"
 	"os"
 	"testing"
 
@@ -287,13 +288,13 @@ func TestOverwriteWithFlagsWithRegionIDEnv(t *testing.T) {
 	assert.Equal(t, exp, actual)
 
 	actual = newProfile()
-	os.Setenv(ENV_SUFFIX+"_REGION_ID", "alicloud")
+	os.Setenv(setting.ENV_SUFFIX+"_REGION_ID", "alicloud")
 	actual.OverwriteWithFlags(ctx)
 	exp.RegionId = "alicloud"
 	assert.Equal(t, exp, actual)
 
 	actual = newProfile()
-	os.Setenv(ENV_SUFFIX+"_REGION_ID", "alibaba")
+	os.Setenv(setting.ENV_SUFFIX+"_REGION_ID", "alibaba")
 	actual.OverwriteWithFlags(ctx)
 	exp.RegionId = "alibaba"
 	assert.Equal(t, exp, actual)
@@ -334,13 +335,13 @@ func TestOverwriteWithFlagsWithAccessKeySecretEnv(t *testing.T) {
 	assert.Equal(t, exp, actual)
 
 	actual = newProfile()
-	os.Setenv(ENV_SUFFIX+"_ACCESS_KEY_SECRET", "alicloud")
+	os.Setenv(setting.ENV_SUFFIX+"_ACCESS_KEY_SECRET", "alicloud")
 	actual.OverwriteWithFlags(ctx)
 	exp.AccessKeySecret = "alicloud"
 	assert.Equal(t, exp, actual)
 
 	actual = newProfile()
-	os.Setenv(ENV_SUFFIX+"_ACCESS_KEY_SECRET", "alibaba")
+	os.Setenv(setting.ENV_SUFFIX+"_ACCESS_KEY_SECRET", "alibaba")
 	actual.OverwriteWithFlags(ctx)
 	exp.AccessKeySecret = "alibaba"
 	assert.Equal(t, exp, actual)
@@ -365,28 +366,28 @@ func TestOverwriteWithFlagsWithAccessKeyIDEnv(t *testing.T) {
 	assert.Equal(t, exp, actual)
 
 	actual = newProfile()
-	os.Setenv(ENV_SUFFIX+"_ACCESS_KEY_ID", "alicloud")
+	os.Setenv(setting.ENV_SUFFIX+"_ACCESS_KEY_ID", "alicloud")
 	actual.OverwriteWithFlags(ctx)
 	exp.AccessKeyId = "alicloud"
 	assert.Equal(t, exp, actual)
 
 	actual = newProfile()
-	os.Setenv(ENV_SUFFIX+"_ACCESS_KEY_ID", "alibaba")
+	os.Setenv(setting.ENV_SUFFIX+"_ACCESS_KEY_ID", "alibaba")
 	actual.OverwriteWithFlags(ctx)
 	exp.AccessKeyId = "alibaba"
 	assert.Equal(t, exp, actual)
 }
 
 func resetEnv() {
-	os.Setenv(ENV_SUFFIX+"_ACCESS_KEY_ID", "")
-	os.Setenv(ENV_SUFFIX+"_ACCESS_KEY_ID", "")
+	os.Setenv(setting.ENV_SUFFIX+"_ACCESS_KEY_ID", "")
+	os.Setenv(setting.ENV_SUFFIX+"_ACCESS_KEY_ID", "")
 	os.Setenv("ACCESS_KEY_ID", "")
-	os.Setenv(ENV_SUFFIX+"_ACCESS_KEY_SECRET", "")
-	os.Setenv(ENV_SUFFIX+"_ACCESS_KEY_SECRET", "")
+	os.Setenv(setting.ENV_SUFFIX+"_ACCESS_KEY_SECRET", "")
+	os.Setenv(setting.ENV_SUFFIX+"_ACCESS_KEY_SECRET", "")
 	os.Setenv("ACCESS_KEY_SECRET", "")
 	os.Setenv("SECURITY_TOKEN", "")
-	os.Setenv(ENV_SUFFIX+"_REGION_ID", "")
-	os.Setenv(ENV_SUFFIX+"_REGION_ID", "")
+	os.Setenv(setting.ENV_SUFFIX+"_REGION_ID", "")
+	os.Setenv(setting.ENV_SUFFIX+"_REGION_ID", "")
 	os.Setenv("REGION", "")
 }
 
@@ -407,8 +408,8 @@ func TestIsRegion(t *testing.T) {
 }
 
 func TestGetStsEndpoint(t *testing.T) {
-	assert.Equal(t, STS_DEFAULT_DOMAIN, getSTSEndpoint(""))
-	assert.Equal(t, "sts.cn-hangzhou."+DOMAIN_SUFFIX, getSTSEndpoint("cn-hangzhou"))
+	assert.Equal(t, setting.STS_DEFAULT_DOMAIN, getSTSEndpoint(""))
+	assert.Equal(t, "sts.cn-hangzhou."+setting.DOMAIN_SUFFIX, getSTSEndpoint("cn-hangzhou"))
 }
 
 func TestAutoModeRecognition(t *testing.T) {

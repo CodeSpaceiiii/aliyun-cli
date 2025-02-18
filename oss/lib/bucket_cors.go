@@ -3,7 +3,7 @@ package lib
 import (
 	"encoding/xml"
 	"fmt"
-	"github.com/aliyun/aliyun-cli/config"
+	"github.com/aliyun/aliyun-cli/setting"
 	"io/ioutil"
 	"os"
 	"strings"
@@ -34,7 +34,7 @@ var specChineseCors = SpecText{
         <?xml version="1.0" encoding="UTF-8"?>
           <CORSConfiguration>
             <CORSRule>
-                <AllowedOrigin>` + config.DEFAULT_PROBE_DOMAIN + `</AllowedOrigin>
+                <AllowedOrigin>` + setting.DEFAULT_PROBE_DOMAIN + `</AllowedOrigin>
                 <AllowedMethod>PUT</AllowedMethod>
                 <MaxAgeSeconds>10000</MaxAgeSeconds>
             </CORSRule>
@@ -88,7 +88,7 @@ Usage:
         <?xml version="1.0" encoding="UTF-8"?>
           <CORSConfiguration>
             <CORSRule>
-                <AllowedOrigin>` + config.DEFAULT_PROBE_DOMAIN + `</AllowedOrigin>
+                <AllowedOrigin>` + setting.DEFAULT_PROBE_DOMAIN + `</AllowedOrigin>
                 <AllowedMethod>PUT</AllowedMethod>
                 <MaxAgeSeconds>10000</MaxAgeSeconds>
             </CORSRule>

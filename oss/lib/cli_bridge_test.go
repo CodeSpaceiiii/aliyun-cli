@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/aliyun/aliyun-cli/cli"
-	"github.com/aliyun/aliyun-cli/config"
+	"github.com/aliyun/aliyun-cli/setting"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -24,7 +24,7 @@ func TestParseAndGetEndpoint(t *testing.T) {
 	flag := cli.Flag{
 		Name: "endpoint",
 	}
-	flag.SetValue("oss-cn-hangzhou." + config.DOMAIN_SUFFIX)
+	flag.SetValue("oss-cn-hangzhou." + setting.DOMAIN_SUFFIX)
 	context.Flags().Add(&flag)
 
 	tests := []struct {
@@ -37,9 +37,9 @@ func TestParseAndGetEndpoint(t *testing.T) {
 			name: "Valid endpoint from args",
 			args: args{
 				ctx:  new(cli.Context),
-				args: []string{"--endpoint", "oss-cn-shenzhen." + config.DOMAIN_SUFFIX},
+				args: []string{"--endpoint", "oss-cn-shenzhen." + setting.DOMAIN_SUFFIX},
 			},
-			want:    "oss-cn-shenzhen." + config.DOMAIN_SUFFIX,
+			want:    "oss-cn-shenzhen." + setting.DOMAIN_SUFFIX,
 			wantErr: assert.NoError,
 		},
 		{
@@ -48,7 +48,7 @@ func TestParseAndGetEndpoint(t *testing.T) {
 				ctx:  new(cli.Context),
 				args: []string{"--region", "cn-shenzhen"},
 			},
-			want:    "oss-cn-shenzhen." + config.DOMAIN_SUFFIX,
+			want:    "oss-cn-shenzhen." + setting.DOMAIN_SUFFIX,
 			wantErr: assert.NoError,
 		},
 		{
@@ -56,7 +56,7 @@ func TestParseAndGetEndpoint(t *testing.T) {
 			args: args{
 				ctx: context,
 			},
-			want:    "oss-cn-hangzhou." + config.DOMAIN_SUFFIX,
+			want:    "oss-cn-hangzhou." + setting.DOMAIN_SUFFIX,
 			wantErr: assert.NoError,
 		},
 	}

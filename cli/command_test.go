@@ -17,6 +17,7 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
+	"github.com/aliyun/aliyun-cli/setting"
 	"testing"
 
 	"github.com/aliyun/aliyun-cli/i18n"
@@ -25,10 +26,10 @@ import (
 
 func TestCommand(t *testing.T) {
 	cmd := &Command{
-		Name:              "aliyun",
+		Name:              setting.CloudMarker,
 		EnableUnknownFlag: true,
 		SuggestDistance:   2,
-		Usage:             "aliyun [subcmd]",
+		Usage:             setting.CloudMarker + " [subcmd]",
 		Short: i18n.T(
 			"cmd Short",
 			"",
@@ -78,7 +79,7 @@ func TestCommand(t *testing.T) {
 
 	//GetUsageWithParent
 	usag := subcmd.GetUsageWithParent()
-	assert.Equal(t, "aliyun oss flag", usag)
+	assert.Equal(t, setting.CloudMarker+" oss flag", usag)
 
 	//ExecuteComplete
 	w := new(bytes.Buffer)
@@ -144,10 +145,10 @@ func TestCommand(t *testing.T) {
 
 func newAliyunCmd() *Command {
 	return &Command{
-		Name:              "aliyun",
+		Name:              setting.CloudMarker,
 		EnableUnknownFlag: true,
 		SuggestDistance:   2,
-		Usage:             "aliyun [subcmd]",
+		Usage:             setting.CloudMarker + " [subcmd]",
 		Short: i18n.T(
 			"cmd Short",
 			"",

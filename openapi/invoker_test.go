@@ -15,6 +15,7 @@ package openapi
 
 import (
 	"bytes"
+	"github.com/aliyun/aliyun-cli/setting"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -88,7 +89,7 @@ func TestBasicInvoker_Init(t *testing.T) {
 	invoker.profile.RegionId = "cn-hangzhou"
 	err = invoker.Init(ctx, product)
 	assert.NotNil(t, err)
-	assert.Equal(t, "unknown endpoint for /cn-hangzhou! failed unknown endpoint for region cn-hangzhou\n  you need to add --endpoint xxx."+config.DOMAIN_SUFFIX, err.Error())
+	assert.Equal(t, "unknown endpoint for /cn-hangzhou! failed unknown endpoint for region cn-hangzhou\n  you need to add --endpoint xxx."+setting.DOMAIN_SUFFIX, err.Error())
 
 	endpointflag.SetAssigned(true)
 	err = invoker.Init(ctx, product)

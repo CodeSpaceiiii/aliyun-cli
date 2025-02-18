@@ -15,13 +15,14 @@ package config
 
 import (
 	"fmt"
+	"github.com/aliyun/aliyun-cli/setting"
 	"os"
 
-	ini "gopkg.in/ini.v1"
+	"gopkg.in/ini.v1"
 )
 
 func MigrateLegacyConfiguration() (conf *Configuration, err error) {
-	path := hookGetHomePath(GetHomePath)() + "/.aliyuncli/credentials"
+	path := hookGetHomePath(GetHomePath)() + "/." + setting.CloudMarker + "cli/credentials"
 	_, statErr := os.Stat(path)
 	if os.IsNotExist(statErr) {
 		return
@@ -32,7 +33,7 @@ func MigrateLegacyConfiguration() (conf *Configuration, err error) {
 		return
 	}
 
-	path = hookGetHomePath(GetHomePath)() + "/.aliyuncli/configure"
+	path = hookGetHomePath(GetHomePath)() + "/." + setting.CloudMarker + "cli/configure"
 	mfErr := MigrateConfigure(path, conf)
 	if mfErr != nil {
 		return
@@ -63,8 +64,8 @@ func MigrateCredentials(path string) (conf *Configuration, err error) {
 			}
 		}
 		// fmt.Printf("\n  %s:", profileName)
-		k1, e1 := section.GetKey("aliyun_access_key_id")
-		k2, e2 := section.GetKey("aliyun_access_key_secret")
+		k1, e1 := section.GetKey(setting.CloudMarker + "_access_key_id")
+		k2, e2 := section.GetKey(setting.CloudMarker + "_access_key_secret")
 		if e1 == nil && e2 == nil {
 			conf.Profiles = append(conf.Profiles, Profile{
 				Name:            profileName,

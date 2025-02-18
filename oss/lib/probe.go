@@ -5,7 +5,7 @@ import (
 	"container/list"
 	"context"
 	"fmt"
-	"github.com/aliyun/aliyun-cli/config"
+	"github.com/aliyun/aliyun-cli/setting"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -79,7 +79,7 @@ var specChineseProbe = SpecText{
 
 --addr选项
 
-    需要网络探测的域名，工具会对该域名进行ping等操作，默认值为` + config.DEFAULT_PROBE_DOMAIN + `
+    需要网络探测的域名，工具会对该域名进行ping等操作，默认值为` + setting.DEFAULT_PROBE_DOMAIN + `
 
 --upmode选项
 
@@ -97,20 +97,20 @@ var specChineseProbe = SpecText{
         该用法下载http_url地址到本地文件系统中，并输出探测报告;如果不输入file_name，则下载文
     件保存在当前目录下，文件名由工具自动判断;如果输入file_name,则file_name为文件名或者目录名，
     下载的文件名为file_name或者保存在file_name目录下。
-        如果输入--addr，工具会探测domain_name, 默认探测 ` + config.DEFAULT_PROBE_DOMAIN + `
+        如果输入--addr，工具会探测domain_name, 默认探测 ` + setting.DEFAULT_PROBE_DOMAIN + `
 
     2) ossutil probe --download --bucketname bucket-name  [--object=object_name] [--addr=domain_name] [file_name]
         该用法下载bucket中的object，并输出探测报告;指定--object则会下载bucket-name中
     的object_name;不指定--object，则工具会生成一个临时文件上传到oss后再将其下载，下载结束后
     会将临时文件和临时object删除
-        如果输入--addr，工具会探测domain_name, 默认探测 ` + config.DEFAULT_PROBE_DOMAIN + `
+        如果输入--addr，工具会探测domain_name, 默认探测 ` + setting.DEFAULT_PROBE_DOMAIN + `
 
     3) ossutil probe --upload [file_name] --bucketname bucket-name [--object=object_name] [--addr=domain_name] 
         该用法是上传探测,会输出探测报告;如果指定file_name,则将该file_name文件上传到oss;不指定
 	file_name,则工具会生成一个临时文件上传，探测结束后将临时文件删除;如果输入--object，则oss
     中object名称为object_name;如果不输入--object，则oss中object名称为工具自动生成，探测结束
     后会将该临时object删除
-        如果输入--addr，工具会探测domain_name, 默认探测 ` + config.DEFAULT_PROBE_DOMAIN + `
+        如果输入--addr，工具会探测domain_name, 默认探测 ` + setting.DEFAULT_PROBE_DOMAIN + `
     
     4) ossutil probe --probe-item item_value --bucketname bucket-name [--object=object_name]
        该功能通过选项--probe-item不同的取值,可以实现不同的探测功能,目前取值有cycle-symlink, upload-speed, download-speed, download-time
@@ -119,13 +119,13 @@ var specChineseProbe = SpecText{
 
 	sampleText: ` 
 	1) 下载指定url
-        ossutil probe --download --url "http://bucket-name.oss-cn-shenzhen.` + config.DOMAIN_SUFFIX + `/object_name"
+        ossutil probe --download --url "http://bucket-name.oss-cn-shenzhen.` + setting.DOMAIN_SUFFIX + `/object_name"
 	
     2) 下载指定Url到指定文件
-        ossutil probe --download --url "http://bucket-name.oss-cn-shenzhen.` + config.DOMAIN_SUFFIX + `/object_name"  file_name
+        ossutil probe --download --url "http://bucket-name.oss-cn-shenzhen.` + setting.DOMAIN_SUFFIX + `/object_name"  file_name
 	
     3) 下载指定url到指定文件、并检测指定地址网络状况
-        ossutil probe  --download --url "http://bucket-name.oss-cn-shenzhen.` + config.DOMAIN_SUFFIX + `/object_name"  file_name --addr www.xx.com
+        ossutil probe  --download --url "http://bucket-name.oss-cn-shenzhen.` + setting.DOMAIN_SUFFIX + `/object_name"  file_name --addr www.xx.com
 
     4) 下载bucket临时文件
         ossutil probe --download --bucketname bucket-name
@@ -137,7 +137,7 @@ var specChineseProbe = SpecText{
         ossutil probe --download --bucketname bucket-name --object object_name  file_name
 
     7) 下载bucket指定文件并保存到本地指定文件，并检测指定地址网络状况
-        ossutil probe --download --bucketname bucket-name --object object_name  file_name --addr ` + config.DEFAULT_PROBE_DOMAIN + `
+        ossutil probe --download --bucketname bucket-name --object object_name  file_name --addr ` + setting.DEFAULT_PROBE_DOMAIN + `
    
     8) 上传临时文件，以normal方式上传
         ossutil probe --upload --bucketname bucket-name --upmode normal
@@ -152,7 +152,7 @@ var specChineseProbe = SpecText{
         ossutil probe --upload file_name --bucketname bucket-name --object object_name
 
     12) 上传指定文件到指定object,并检测addr地址
-        ossutil probe --upload file_name --bucketname bucket-name --object object_name --addr ` + config.DEFAULT_PROBE_DOMAIN + `
+        ossutil probe --upload file_name --bucketname bucket-name --object object_name --addr ` + setting.DEFAULT_PROBE_DOMAIN + `
     
     13) 检测本地目录dir是否存在死循环链接文件或者目录
         ossutil probe --probe-item cycle-symlink dir
@@ -211,7 +211,7 @@ var specEnglishProbe = SpecText{
 
 --addr option
     
-    Specifies a domain name which will be probed by ossutil,the default value is ` + config.DEFAULT_PROBE_DOMAIN + `
+    Specifies a domain name which will be probed by ossutil,the default value is ` + setting.DEFAULT_PROBE_DOMAIN + `
 
 --upmode option
 
@@ -231,7 +231,7 @@ Usage:
 	probe report; if you do not input file_name, the downloaded file is saved in the 
 	current directory and the file name is determined by ossutil; if file_name is inputed, 
 	The downloaded file is named file_name.
-        If you input --addr, ossutil will probe the domain_name,default probe ` + config.DEFAULT_PROBE_DOMAIN + `
+        If you input --addr, ossutil will probe the domain_name,default probe ` + setting.DEFAULT_PROBE_DOMAIN + `
 
     2) ossutil probe --download --bucketname bucket-name  [--object=object_name] [--addr=domain_name] [file_namefile_name]
 		
@@ -239,7 +239,7 @@ Usage:
 	if you input --object,ossutil downloads the specified object; if you don't input --object
 	,ossutil creates a temporary file to upload and then downloads it; after probe end,temporary 
     file and temporary object will all be deleted
-        If you input --addr, ossutil will probe the domain_name,default probe ` + config.DEFAULT_PROBE_DOMAIN + `
+        If you input --addr, ossutil will probe the domain_name,default probe ` + setting.DEFAULT_PROBE_DOMAIN + `
 
     3) ossutil probe --upload [file_name] --bucketname bucket-name [--object=object_name] [--addr=domain_name] 
 		
@@ -248,7 +248,7 @@ Usage:
 	file to upload and delete it after the probe ends; if you input --object, the uploaded object
 	is named object_name; if you don't input --object, the uploaded object's name is determined by 
 	ossutil, and after probe end,the temporary object will be deleted
-        If you input --addr, ossutil will probe the domain_name,default probe ` + config.DEFAULT_PROBE_DOMAIN + `
+        If you input --addr, ossutil will probe the domain_name,default probe ` + setting.DEFAULT_PROBE_DOMAIN + `
     
     4) ossutil probe --probe-item item_value --bucketname bucket-name [--object=object_name]
         You can implement different detection functions by using the value of the option --probe-item.
@@ -258,13 +258,13 @@ Usage:
 
 	sampleText: ` 
 	1) downloads specified url
-        ossutil probe --download --url "http://bucket-name.oss-cn-shenzhen.` + config.DOMAIN_SUFFIX + `/object_name"
+        ossutil probe --download --url "http://bucket-name.oss-cn-shenzhen.` + setting.DOMAIN_SUFFIX + `/object_name"
 	
     2) downloads specified url to specified file
-        ossutil probe --download --url "http://bucket-name.oss-cn-shenzhen.` + config.DOMAIN_SUFFIX + `/object_name"  file_name
+        ossutil probe --download --url "http://bucket-name.oss-cn-shenzhen.` + setting.DOMAIN_SUFFIX + `/object_name"  file_name
 	
     3) downloads specified url to specified file,and ping domain
-        ossutil probe  --download --url "http://bucket-name.oss-cn-shenzhen.` + config.DOMAIN_SUFFIX + `/object_name"  file_name --addr ` + config.DEFAULT_PROBE_DOMAIN + `
+        ossutil probe  --download --url "http://bucket-name.oss-cn-shenzhen.` + setting.DOMAIN_SUFFIX + `/object_name"  file_name --addr ` + setting.DEFAULT_PROBE_DOMAIN + `
 
     4) downloads temporary file from specified bucket
         ossutil probe --download --bucketname bucket-name
@@ -276,7 +276,7 @@ Usage:
         ossutil probe --download --bucketname bucket-name --object object_name  file_name
 
     7) downloads specified object from specified bucket to specified file,and probe domain
-        ossutil probe --download --bucketname bucket-name --object object_name  file_name --addr ` + config.DEFAULT_PROBE_DOMAIN + `
+        ossutil probe --download --bucketname bucket-name --object object_name  file_name --addr ` + setting.DEFAULT_PROBE_DOMAIN + `
    
     8) uploads a temporary file with normal mode
         ossutil probe --upload --bucketname bucket-name --upmode normal
@@ -291,7 +291,7 @@ Usage:
         ossutil probe --upload file_name --bucketname bucket-name --object object_name
 
     12) uploads specified file to specified object, and probe domain
-        ossutil probe --upload file_name --bucketname bucket-name --object object_name --addr ` + config.DEFAULT_PROBE_DOMAIN + `
+        ossutil probe --upload file_name --bucketname bucket-name --object object_name --addr ` + setting.DEFAULT_PROBE_DOMAIN + `
     
     13) Check if the local directory dir has an infinite loop link file or directory
         ossutil probe --probe-item cycle-symlink dir
@@ -1044,7 +1044,7 @@ func (pc *ProbeCommand) ossNetDetection(pingPath string) {
 		return // for test:reduce test time
 	}
 
-	var netAddr = config.DEFAULT_PROBE_DOMAIN
+	var netAddr = setting.DEFAULT_PROBE_DOMAIN
 
 	if pc.pbOption.netAddr != "" {
 		netAddr = pc.pbOption.netAddr

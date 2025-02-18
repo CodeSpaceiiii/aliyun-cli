@@ -15,6 +15,7 @@ package openapi
 
 import (
 	"fmt"
+	"github.com/aliyun/aliyun-cli/setting"
 	"os"
 	"strings"
 	"time"
@@ -59,7 +60,7 @@ func GetClient(cp *config.Profile, ctx *cli.Context) (client *sdk.Client, err er
 		return
 	}
 	// get UserAgent from env
-	conf.UserAgent = os.Getenv("ALIYUN_USER_AGENT")
+	conf.UserAgent = os.Getenv(setting.USER_AGENT + "_USER_AGENT")
 
 	if cp.RetryCount > 0 {
 		// when use --retry-count, enable auto retry
@@ -159,9 +160,9 @@ func (a *BasicInvoker) Init(ctx *cli.Context, product *meta.Product) error {
 		}
 	}
 
-	hint := "you can find it on " + config.HOME_PAGE
+	hint := "you can find it on " + setting.HOME_PAGE
 	if product.Version != "" {
-		hint = fmt.Sprintf("please use `"+config.CloudMarker+" help %s` get more information.", product.GetLowerCode())
+		hint = fmt.Sprintf("please use `"+setting.CloudMarker+" help %s` get more information.", product.GetLowerCode())
 	}
 
 	if a.request.Version == "" {
@@ -178,17 +179,17 @@ func (a *BasicInvoker) Init(ctx *cli.Context, product *meta.Product) error {
 	if err != nil {
 		return fmt.Errorf("init client failed %s", err)
 	}
-	if vendorEnv, ok := os.LookupEnv(config.ENV_SUFFIX + "_VENDOR"); ok {
+	if vendorEnv, ok := os.LookupEnv(setting.ENV_SUFFIX + "_VENDOR"); ok {
 		a.client.AppendUserAgent("vendor", vendorEnv)
 	}
-	a.client.AppendUserAgent(config.USER_AGENT, cli.GetVersion())
+	a.client.AppendUserAgent(setting.USER_AGENT, cli.GetVersion())
 
 	if a.request.Domain == "" {
 		a.request.Domain, err = product.GetEndpoint(a.request.RegionId, a.client)
 		if err != nil {
 			return cli.NewErrorWithTip(
 				fmt.Errorf("unknown endpoint for %s/%s! failed %s", product.GetLowerCode(), a.request.RegionId, err),
-				"Use flag --endpoint xxx."+config.DOMAIN_SUFFIX+" to assign endpoint, "+hint)
+				"Use flag --endpoint xxx."+setting.DOMAIN_SUFFIX+" to assign endpoint, "+hint)
 		}
 	}
 

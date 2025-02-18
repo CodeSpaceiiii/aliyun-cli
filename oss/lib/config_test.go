@@ -2,7 +2,7 @@ package lib
 
 import (
 	"fmt"
-	"github.com/aliyun/aliyun-cli/config"
+	"github.com/aliyun/aliyun-cli/setting"
 	"io"
 	"io/ioutil"
 	"os"
@@ -50,7 +50,7 @@ func (s *OssutilConfigSuite) TestConfigNonInteractive(c *C) {
 	command := "config"
 	var args []string
 	configFile := randStr(10)
-	endpoint := config.OSS_DEFAULT_REGION + "." + config.DOMAIN_SUFFIX
+	endpoint := setting.OSS_DEFAULT_REGION + "." + setting.DOMAIN_SUFFIX
 	accessKeyID := "ak"
 	accessKeySecret := "sk"
 	stsToken := "token"
@@ -117,7 +117,7 @@ func (s *OssutilConfigSuite) TestConfigNonInteractiveLanguage(c *C) {
 	var args []string
 	for _, language := range []string{DefaultLanguage, EnglishLanguage, LEnglishLanguage} {
 		configFile := randStr(10)
-		endpoint := config.OSS_DEFAULT_REGION + "." + config.DOMAIN_SUFFIX
+		endpoint := setting.OSS_DEFAULT_REGION + "." + setting.DOMAIN_SUFFIX
 		stsToken := "token"
 		options := OptionMapType{
 			"endpoint":   &endpoint,
@@ -370,9 +370,9 @@ func (s *OssutilConfigSuite) TestConfigNonInteractiveWithCommonOption(c *C) {
 	roleSessionName := "roleTest"
 	readTimeout := "10"
 	connectTimeOut := "10"
-	stsRegion = "sts.cn-qingdao." + config.DOMAIN_SUFFIX
+	stsRegion = "sts.cn-qingdao." + setting.DOMAIN_SUFFIX
 	signVersion := "v4"
-	region := "oss-cn-chengdu." + config.DOMAIN_SUFFIX
+	region := "oss-cn-chengdu." + setting.DOMAIN_SUFFIX
 	cloudboxId := "12124123"
 	retryTimes := "400"
 	data := "[Credentials]" + "\n" +
@@ -433,7 +433,7 @@ func (s *OssutilConfigSuite) TestConfigNonInteractiveWithCommonOption(c *C) {
 	ramRoleArn1 := "acs:ram::123*******123:role/ramosssts1"
 	roleSessionName1 := "roleTest1"
 	ecsRoleName1 := "ossTest1"
-	stsRegion1 := "sts.cn-hangzhou." + config.DOMAIN_SUFFIX
+	stsRegion1 := "sts.cn-hangzhou." + setting.DOMAIN_SUFFIX
 	data = "[Credentials]" + "\n" +
 		"language=" + DefaultLanguage + "\n" +
 		"accessKeyID=" + accessKeyID + "\n" +

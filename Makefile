@@ -1,5 +1,5 @@
 export VERSION=3.0.0-beta
-export CLI_NAME=aliyun
+export CLI_NAME=ea134
 export RELEASE_PATH="releases/${CLI_NAME}-cli-${VERSION}"
 
 all: build

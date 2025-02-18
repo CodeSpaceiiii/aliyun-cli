@@ -1,7 +1,7 @@
 package lib
 
 import (
-	"github.com/aliyun/aliyun-cli/config"
+	"github.com/aliyun/aliyun-cli/setting"
 	"os"
 
 	oss "github.com/aliyun/aliyun-oss-go-sdk/oss"
@@ -139,7 +139,7 @@ const (
 )
 
 const (
-	updateEndpoint         string = config.OSS_DEFAULT_REGION + "." + config.DOMAIN_SUFFIX
+	updateEndpoint         string = setting.OSS_DEFAULT_REGION + "." + setting.DOMAIN_SUFFIX
 	updateBucket                  = "ossutil-version-update"
 	updateVersionObject           = "ossutilversion"
 	updateBinaryLinux32           = "ossutil32"
@@ -159,7 +159,7 @@ const (
 	Package                 string = "ossutil"
 	ChannelBuf              int    = 1000
 	Version                 string = "v1.7.19"
-	DefaultEndpoint         string = "oss." + config.DOMAIN_SUFFIX
+	DefaultEndpoint         string = "oss." + setting.DOMAIN_SUFFIX
 	ChineseLanguage                = "CH"
 	EnglishLanguage                = "EN"
 	Scheme                  string = "oss"

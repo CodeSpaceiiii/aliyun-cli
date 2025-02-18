@@ -2,7 +2,7 @@ package lib
 
 import (
 	"fmt"
-	"github.com/aliyun/aliyun-cli/config"
+	"github.com/aliyun/aliyun-cli/setting"
 	"net/url"
 	"os"
 	"strconv"
@@ -653,7 +653,7 @@ func (s *OssutilCommandSuite) TestSignWithModeStsToken(c *C) {
 
 	client := NewClient(stsAccessID, stsAccessKeySecret, stsARN, "sts_test")
 
-	resp, err := client.AssumeRole(3600, fmt.Sprintf("https://sts.%s.%s", config.STS_DEFAULT_REGION, config.DOMAIN_SUFFIX))
+	resp, err := client.AssumeRole(3600, fmt.Sprintf("https://sts.%s.%s", setting.STS_DEFAULT_REGION, setting.DOMAIN_SUFFIX))
 	c.Assert(err, IsNil)
 
 	temAccessID := resp.Credentials.AccessKeyId

@@ -2,7 +2,7 @@ package lib
 
 import (
 	"fmt"
-	"github.com/aliyun/aliyun-cli/config"
+	"github.com/aliyun/aliyun-cli/setting"
 	"io/ioutil"
 	"log"
 	"os"
@@ -457,7 +457,7 @@ func (s *OssutilCommandSuite) getBucketResults(c *C) []string {
 	result := s.getResult(c)
 	c.Assert(len(result) >= 1, Equals, true)
 	buckets := []string{}
-	shortEndpoint := strings.TrimRight(endpoint, "."+config.DOMAIN_SUFFIX)
+	shortEndpoint := strings.TrimRight(endpoint, "."+setting.DOMAIN_SUFFIX)
 	shortEndpoint = strings.TrimRight(shortEndpoint, "-internal")
 	for _, str := range result {
 		pos := strings.Index(str, SchemePrefix)

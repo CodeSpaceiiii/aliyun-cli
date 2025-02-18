@@ -2,7 +2,7 @@ package lib
 
 import (
 	"fmt"
-	"github.com/aliyun/aliyun-cli/config"
+	"github.com/aliyun/aliyun-cli/setting"
 	"io/ioutil"
 	"os"
 	"runtime"
@@ -62,7 +62,7 @@ func (s *OssutilCommandSuite) probeDownloadUrl(c *C, downloadFile string, repeat
 
 	// repeate download
 	if repeatDown {
-		probeCommand.pbOption.netAddr = config.DEFAULT_PROBE_DOMAIN
+		probeCommand.pbOption.netAddr = setting.DEFAULT_PROBE_DOMAIN
 		_, err = cm.RunCommand("probe", pbArgs, options)
 		c.Assert(err, IsNil)
 		c.Assert((probeCommand.pbOption.dlFilePath == ""), Equals, false)
@@ -158,7 +158,7 @@ func (s *OssutilCommandSuite) probeDownloadWithParameter(c *C, object string, do
 	}
 
 	if repeatDown {
-		probeCommand.pbOption.netAddr = config.DEFAULT_PROBE_DOMAIN
+		probeCommand.pbOption.netAddr = setting.DEFAULT_PROBE_DOMAIN
 		_, err = cm.RunCommand("probe", pbArgs, options)
 		c.Assert(err, IsNil)
 		c.Assert((probeCommand.pbOption.dlFilePath == ""), Equals, false)

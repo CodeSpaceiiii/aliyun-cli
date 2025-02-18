@@ -15,6 +15,7 @@ package config
 
 import (
 	"fmt"
+	"github.com/aliyun/aliyun-cli/setting"
 	"os"
 
 	openapi "github.com/alibabacloud-go/darabonba-openapi/v2/client"
@@ -62,8 +63,8 @@ func doHello(ctx *cli.Context, profile *Profile) (err error) {
 	runtime := &util.RuntimeOptions{}
 	request := &openapi.OpenApiRequest{}
 
-	ua := USER_AGENT + "/" + cli.GetVersion()
-	if vendorEnv, ok := os.LookupEnv(ENV_SUFFIX + "_CLOUD_VENDOR"); ok {
+	ua := setting.USER_AGENT + "/" + cli.GetVersion()
+	if vendorEnv, ok := os.LookupEnv(setting.ENV_SUFFIX + "_CLOUD_VENDOR"); ok {
 		ua += " vendor/" + vendorEnv
 	}
 

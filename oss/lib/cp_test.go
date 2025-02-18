@@ -2,7 +2,7 @@ package lib
 
 import (
 	"fmt"
-	"github.com/aliyun/aliyun-cli/config"
+	"github.com/aliyun/aliyun-cli/setting"
 	"hash/fnv"
 	"io/ioutil"
 	"net"
@@ -5768,7 +5768,7 @@ func (s *OssutilCommandSuite) TestCPObjectUnderNomodeWithEmptyAKIdAndEcsUrl(c *C
 	bucketName := bucketNamePrefix + randLowStr(12)
 	s.putBucket(bucketName, c)
 
-	configStr := "[Credentials]" + "\n" + "language=EN" + "\n" + "endpoint=oss-cn-shenzhen." + config.DOMAIN_SUFFIX + "\n"
+	configStr := "[Credentials]" + "\n" + "language=EN" + "\n" + "endpoint=oss-cn-shenzhen." + setting.DOMAIN_SUFFIX + "\n"
 	cfile := randStr(10)
 	s.createFile(cfile, configStr, c)
 

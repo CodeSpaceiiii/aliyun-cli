@@ -16,6 +16,7 @@ package config
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/aliyun/aliyun-cli/setting"
 	"os"
 	"runtime"
 
@@ -70,7 +71,7 @@ func (c *Configuration) GetProfile(pn string) (Profile, bool) {
 func (c *Configuration) GetCurrentProfile(ctx *cli.Context) Profile {
 	profileName := ProfileFlag(ctx.Flags()).GetStringOrDefault(c.CurrentProfile)
 	if profileName == "" || profileName == "default" {
-		if v := util.GetFromEnv(ENV_SUFFIX + "_PROFILE"); v != "" {
+		if v := util.GetFromEnv(setting.ENV_SUFFIX + "_PROFILE"); v != "" {
 			profileName = v
 		}
 	}
@@ -123,7 +124,7 @@ func getConfigurePath(ctx *cli.Context) (currentPath string) {
 func getProfileName(ctx *cli.Context) (name string) {
 	if name, ok := ProfileFlag(ctx.Flags()).GetValue(); ok {
 		return name
-	} else if profileNameInEnv := util.GetFromEnv(ENV_SUFFIX + "_PROFILE"); profileNameInEnv != "" {
+	} else if profileNameInEnv := util.GetFromEnv(setting.ENV_SUFFIX + "_PROFILE"); profileNameInEnv != "" {
 		return profileNameInEnv
 	}
 
@@ -131,9 +132,9 @@ func getProfileName(ctx *cli.Context) (name string) {
 }
 
 func LoadProfileWithContext(ctx *cli.Context) (profile Profile, err error) {
-	if util.GetFromEnv(ENV_SUFFIX+"_IGNORE_PROFILE") == "TRUE" {
+	if util.GetFromEnv(setting.ENV_SUFFIX+"_IGNORE_PROFILE") == "TRUE" {
 		profile = NewProfile("default")
-		profile.RegionId = STS_DEFAULT_REGION
+		profile.RegionId = setting.STS_DEFAULT_REGION
 	} else {
 		currentPath := getConfigurePath(ctx)
 		profileName := getProfileName(ctx)

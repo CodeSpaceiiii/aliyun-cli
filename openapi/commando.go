@@ -15,6 +15,7 @@ package openapi
 
 import (
 	"bytes"
+	"github.com/aliyun/aliyun-cli/setting"
 
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/responses"
 	"github.com/aliyun/aliyun-cli/cli"
@@ -122,11 +123,11 @@ func (c *Commando) main(ctx *cli.Context, args []string) error {
 	var err error
 	c.profile, err = config.LoadProfileWithContext(ctx)
 	if err != nil {
-		return cli.NewErrorWithTip(err, "Configuration failed, use `aliyun configure` to configure it")
+		return cli.NewErrorWithTip(err, "Configuration failed, use `"+setting.CloudMarker+" configure` to configure it")
 	}
 	err = c.profile.Validate()
 	if err != nil {
-		return cli.NewErrorWithTip(err, "Configuration failed, use `aliyun configure` to configure it.")
+		return cli.NewErrorWithTip(err, "Configuration failed, use `"+setting.CloudMarker+" configure` to configure it.")
 	}
 	i18n.SetLanguage(c.profile.Language)
 
@@ -179,7 +180,7 @@ func (c *Commando) main(ctx *cli.Context, args []string) error {
 		return c.processInvoke(ctx, productName, args[1], args[2])
 	} else {
 		return cli.NewErrorWithTip(fmt.Errorf("too many arguments"),
-			"Use `aliyun --help` to show usage")
+			"Use `"+setting.CloudMarker+" --help` to show usage")
 	}
 }
 
@@ -316,7 +317,7 @@ func (c *Commando) createInvoker(ctx *cli.Context, productCode string, apiOrMeth
 			// Rpc call
 			if path != "" {
 				return nil, cli.NewErrorWithTip(fmt.Errorf("invalid argument %s", path),
-					"Use `aliyun help %s` see more information.", product.GetLowerCode())
+					"Use `"+setting.CloudMarker+" help %s` see more information.", product.GetLowerCode())
 			}
 			if force {
 				return &ForceRpcInvoker{
@@ -344,7 +345,7 @@ func (c *Commando) createInvoker(ctx *cli.Context, productCode string, apiOrMeth
 
 		if !ok {
 			return nil, cli.NewErrorWithTip(fmt.Errorf("product '%s' need restful call", product.GetLowerCode()),
-				"Use `aliyun %s {GET|PUT|POST|DELETE} <path> ...`", product.GetLowerCode())
+				"Use `"+setting.CloudMarker+" %s {GET|PUT|POST|DELETE} <path> ...`", product.GetLowerCode())
 		}
 
 		if api, ok := c.library.GetApi(product.Code, product.Version, ctx.Command().Name); ok {

@@ -2,7 +2,7 @@ package lib
 
 import (
 	"fmt"
-	"github.com/aliyun/aliyun-cli/config"
+	"github.com/aliyun/aliyun-cli/setting"
 	"net"
 	"net/http"
 	"net/url"
@@ -393,7 +393,7 @@ func (cmd *Command) ossClient(bucket string) (*oss.Client, error) {
 		if stsRegion == "" {
 			stsEndPoint = ""
 		} else {
-			stsEndPoint = "https://sts." + stsRegion + "." + config.DOMAIN_SUFFIX
+			stsEndPoint = "https://sts." + stsRegion + "." + setting.DOMAIN_SUFFIX
 		}
 
 		resp, err := stsClient.AssumeRole(TokenTimeout, stsEndPoint)

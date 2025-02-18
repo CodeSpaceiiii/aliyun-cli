@@ -2,6 +2,7 @@ package lib
 
 import (
 	"fmt"
+	"github.com/aliyun/aliyun-cli/setting"
 	"os"
 
 	"github.com/alibabacloud-go/tea/tea"
@@ -15,7 +16,7 @@ func NewOssCommand() *cli.Command {
 		Name:   "oss",
 		Usage:  "oss [command] [args...] [options...]",
 		Hidden: false,
-		Short:  i18n.T("Object Storage Service", "阿里云OSS对象存储"),
+		Short:  i18n.T("Object Storage Service", "OSS对象存储"),
 	}
 
 	cmds := []Command{
@@ -133,14 +134,14 @@ func ParseAndGetEndpoint(ctx *cli.Context, args []string) (string, error) {
 		for i, arg := range args {
 			if arg == "--region" {
 				if i+1 < len(args) {
-					return "oss-" + args[i+1] + "." + config.DOMAIN_SUFFIX, nil
+					return "oss-" + args[i+1] + "." + setting.DOMAIN_SUFFIX, nil
 				}
 			}
 		}
 	}
 	// check endpoint from flags
 	if ep, ok := ctx.Flags().GetValue("endpoint"); !ok {
-		return "oss-" + profile.RegionId + "." + config.DOMAIN_SUFFIX, nil
+		return "oss-" + profile.RegionId + "." + setting.DOMAIN_SUFFIX, nil
 	} else {
 		return ep, nil
 	}
@@ -190,7 +191,7 @@ func ParseAndRunCommandFromCli(ctx *cli.Context, args []string) error {
 	}
 	configs["endpoint"] = endpoint
 
-	a2 := []string{"aliyun", "oss"}
+	a2 := []string{setting.CloudMarker, "oss"}
 	a2 = append(a2, ctx.Command().Name)
 	a2 = append(a2, args...)
 	configFlagSet := cli.NewFlagSet()

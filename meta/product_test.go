@@ -15,7 +15,7 @@ package meta
 
 import (
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk"
-	"github.com/aliyun/aliyun-cli/config"
+	"github.com/aliyun/aliyun-cli/setting"
 	"github.com/stretchr/testify/assert"
 
 	"testing"
@@ -33,7 +33,7 @@ func TestProduct_GetEndpoint(t *testing.T) {
 	product := &Product{
 		Code: "arms",
 		RegionalEndpoints: map[string]string{
-			"cn-hangzhou": "arms.cn-hangzhou." + config.DOMAIN_SUFFIX,
+			"cn-hangzhou": "arms.cn-hangzhou." + setting.DOMAIN_SUFFIX,
 		},
 		LocationServiceCode: "arms",
 	}
@@ -41,13 +41,13 @@ func TestProduct_GetEndpoint(t *testing.T) {
 	assert.Nil(t, err)
 	endpoint, err := product.GetEndpoint("cn-hangzhou", client)
 	assert.Nil(t, err)
-	assert.Equal(t, endpoint, "arms.cn-hangzhou."+config.DOMAIN_SUFFIX)
+	assert.Equal(t, endpoint, "arms.cn-hangzhou."+setting.DOMAIN_SUFFIX)
 
 	product.LocationServiceCode = ""
-	product.GlobalEndpoint = "arms." + config.DOMAIN_SUFFIX
+	product.GlobalEndpoint = "arms." + setting.DOMAIN_SUFFIX
 	endpoint, err = product.GetEndpoint("us-west-1", client)
 	assert.Nil(t, err)
-	assert.Equal(t, endpoint, "arms."+config.DOMAIN_SUFFIX)
+	assert.Equal(t, endpoint, "arms."+setting.DOMAIN_SUFFIX)
 
 	product.GlobalEndpoint = ""
 	_, err = product.GetEndpoint("us-west-1", client)

@@ -3,6 +3,7 @@ package lib
 import (
 	"bytes"
 	"fmt"
+	"github.com/aliyun/aliyun-cli/setting"
 	"hash"
 	"io/ioutil"
 	"math/rand"
@@ -92,9 +93,9 @@ func getSysInfo() sysInfo {
 func getUserAgent(ua string) string {
 	sys := getSysInfo()
 	if ua == "" {
-		return fmt.Sprintf("aliyun-sdk-go/%s (%s/%s/%s;%s)/%s-%s", oss.Version, sys.name, sys.release, sys.machine, runtime.Version(), Package, Version)
+		return fmt.Sprintf(setting.CloudMarker+"-sdk-go/%s (%s/%s/%s;%s)/%s-%s", oss.Version, sys.name, sys.release, sys.machine, runtime.Version(), Package, Version)
 	}
-	return fmt.Sprintf("aliyun-sdk-go/%s (%s/%s/%s;%s)/%s-%s/%s", oss.Version, sys.name, sys.release, sys.machine, runtime.Version(), Package, Version, ua)
+	return fmt.Sprintf(setting.CloudMarker+"-sdk-go/%s (%s/%s/%s;%s)/%s-%s/%s", oss.Version, sys.name, sys.release, sys.machine, runtime.Version(), Package, Version, ua)
 }
 
 func utcToLocalTime(utc time.Time) time.Time {

@@ -2,7 +2,7 @@ package lib
 
 import (
 	"encoding/xml"
-	"github.com/aliyun/aliyun-cli/config"
+	"github.com/aliyun/aliyun-cli/setting"
 	"os"
 
 	oss "github.com/aliyun/aliyun-oss-go-sdk/oss"
@@ -13,7 +13,7 @@ func (s *OssutilCommandSuite) TestCorsPutSuccess(c *C) {
 	corsXml := `<?xml version="1.0" encoding="UTF-8"?>
     <CORSConfiguration>
       <CORSRule>
-          <AllowedOrigin>` + config.DEFAULT_PROBE_DOMAIN + `</AllowedOrigin>
+          <AllowedOrigin>` + setting.DEFAULT_PROBE_DOMAIN + `</AllowedOrigin>
           <AllowedMethod>PUT</AllowedMethod>
           <MaxAgeSeconds>10001</MaxAgeSeconds>
       </CORSRule>
@@ -170,7 +170,7 @@ func (s *OssutilCommandSuite) TestCorsGetConfirm(c *C) {
 	corsXml := `<?xml version="1.0" encoding="UTF-8"?>
     <CORSConfiguration>
       <CORSRule>
-          <AllowedOrigin>` + config.DEFAULT_PROBE_DOMAIN + `</AllowedOrigin>
+          <AllowedOrigin>` + setting.DEFAULT_PROBE_DOMAIN + `</AllowedOrigin>
           <AllowedMethod>PUT</AllowedMethod>
           <MaxAgeSeconds>10001</MaxAgeSeconds>
       </CORSRule>
@@ -231,7 +231,7 @@ func (s *OssutilCommandSuite) TestCorsDelete(c *C) {
 	corsXml := `<?xml version="1.0" encoding="UTF-8"?>
     <CORSConfiguration>
       <CORSRule>
-          <AllowedOrigin>` + config.DEFAULT_PROBE_DOMAIN + `</AllowedOrigin>
+          <AllowedOrigin>` + setting.DEFAULT_PROBE_DOMAIN + `</AllowedOrigin>
           <AllowedMethod>PUT</AllowedMethod>
           <MaxAgeSeconds>10001</MaxAgeSeconds>
       </CORSRule>

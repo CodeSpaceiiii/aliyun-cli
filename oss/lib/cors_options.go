@@ -1,7 +1,7 @@
 package lib
 
 import (
-	"github.com/aliyun/aliyun-cli/config"
+	"github.com/aliyun/aliyun-cli/setting"
 	"os"
 	"strings"
 
@@ -24,15 +24,15 @@ var specChineseOptions = SpecText{
 用法:
     该命令有一种用法:
 	
-    1) ossutil cors-options --acr-method PUT --origin "www.` + config.DOMAIN_SUFFIX + `" --acr-header x-oss-meta-author oss://bucket/ [options]
-       向oss发送options请求,Origin、Access-Control-Request-Method、Access-Control-Request-Headers分别为www.` + config.DOMAIN_SUFFIX + `、PUT、x-oss-meta-author
+    1) ossutil cors-options --acr-method PUT --origin "www.` + setting.DOMAIN_SUFFIX + `" --acr-header x-oss-meta-author oss://bucket/ [options]
+       向oss发送options请求,Origin、Access-Control-Request-Method、Access-Control-Request-Headers分别为www.` + setting.DOMAIN_SUFFIX + `、PUT、x-oss-meta-author
 `,
 	sampleText: ` 
     1) 发送options请求,Access-Control-Request-Method为PUT
-       ossutil cors-options --acr-method PUT --origin "www.` + config.DOMAIN_SUFFIX + `" --acr-header x-oss-meta-author oss://bucket/
+       ossutil cors-options --acr-method PUT --origin "www.` + setting.DOMAIN_SUFFIX + `" --acr-header x-oss-meta-author oss://bucket/
     
     2) 发送options请求,有多个header参数,Access-Control-Request-Method为GET
-       ossutil cors-options --acr-method GET --origin "www.` + config.DOMAIN_SUFFIX + `" --acr-header "x-oss-meta-author1,x-oss-meta-author2" oss://bucket/
+       ossutil cors-options --acr-method GET --origin "www.` + setting.DOMAIN_SUFFIX + `" --acr-header "x-oss-meta-author1,x-oss-meta-author2" oss://bucket/
 `,
 }
 
@@ -52,15 +52,15 @@ var specEnglishOptions = SpecText{
 Usage:
     There are one usage for this command:
 	
-    1) ossutil cors-options --acr-method PUT --origin "www.` + config.DOMAIN_SUFFIX + `" --acr-header x-oss-meta-author oss://bucket/ [options]
-       sends an http options request to oss,Origin、Access-Control-Request-Method、Access-Control-Request-Headers values are www.` + config.DOMAIN_SUFFIX + `、PUT、x-oss-meta-author
+    1) ossutil cors-options --acr-method PUT --origin "www.` + setting.DOMAIN_SUFFIX + `" --acr-header x-oss-meta-author oss://bucket/ [options]
+       sends an http options request to oss,Origin、Access-Control-Request-Method、Access-Control-Request-Headers values are www.` + setting.DOMAIN_SUFFIX + `、PUT、x-oss-meta-author
 `,
 	sampleText: ` 
     1) sends an http options request,Access-Control-Request-Method value is PUT
-    ossutil cors-options --acr-method PUT --origin "www.` + config.DOMAIN_SUFFIX + `" --acr-header x-oss-meta-author oss://bucket/
+    ossutil cors-options --acr-method PUT --origin "www.` + setting.DOMAIN_SUFFIX + `" --acr-header x-oss-meta-author oss://bucket/
  
     2) sends an http options request,there are multipule values for --acr-header,Access-Control-Request-Method value is GET
-    ossutil cors-options --acr-method GET --origin "www.` + config.DOMAIN_SUFFIX + `" --acr-header "x-oss-meta-author1,x-oss-meta-author2" oss://bucket/
+    ossutil cors-options --acr-method GET --origin "www.` + setting.DOMAIN_SUFFIX + `" --acr-header "x-oss-meta-author1,x-oss-meta-author2" oss://bucket/
 `,
 }
 

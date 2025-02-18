@@ -15,6 +15,7 @@ package cli
 
 import (
 	"fmt"
+	"github.com/aliyun/aliyun-cli/setting"
 	"os"
 	"os/user"
 
@@ -51,17 +52,10 @@ func NewAutoCompleteCommand() *Command {
 			"启用自动完成"),
 		Usage: "auto-completion [--uninstall]",
 		Run: func(ctx *Context, args []string) error {
-			//s, _ := os.Executable()
-			//fmt.Printf("%s \n", s)
-			//
-			//if f := rcFile(".zshrc"); f != "" {
-			//	// i = append(i, zshInstaller{f})
-			//	fmt.Printf("zshInstaller: %s\n", f)
-			//}
 			if uninstallFlag.IsAssigned() {
-				uninstallCompletion(ctx, "aliyun")
+				uninstallCompletion(ctx, setting.CloudMarker)
 			} else {
-				installCompletion(ctx, "aliyun")
+				installCompletion(ctx, setting.CloudMarker)
 			}
 			return nil
 		},

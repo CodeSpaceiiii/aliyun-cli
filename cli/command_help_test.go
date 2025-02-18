@@ -16,6 +16,7 @@ package cli
 import (
 	"bytes"
 	"errors"
+	"github.com/aliyun/aliyun-cli/setting"
 	"testing"
 
 	"github.com/aliyun/aliyun-cli/i18n"
@@ -27,15 +28,15 @@ func TestCmdPrint(t *testing.T) {
 	stderr := new(bytes.Buffer)
 	ctx := NewCommandContext(w, stderr)
 	c := &Command{
-		Name:              "aliyun",
+		Name:              setting.CloudMarker,
 		EnableUnknownFlag: true,
 		SuggestDistance:   2,
-		Usage:             "aliyun [subcmd]",
+		Usage:             setting.CloudMarker + " [subcmd]",
 		Short: i18n.T(
 			"use `--profile <profileName>` to select profile",
 			"使用 `--profile <profileName>` 指定操作的配置集",
 		),
-		Sample: "aliyun oss",
+		Sample: setting.CloudMarker + " oss",
 		flags:  NewFlagSet(),
 	}
 
@@ -47,7 +48,7 @@ func TestCmdPrint(t *testing.T) {
 	w.Reset()
 	stderr.Reset()
 	c.PrintUsage(ctx)
-	assert.Equal(t, "\nUsage:\n  aliyun [subcmd]\n", w.String())
+	assert.Equal(t, "\nUsage:\n  "+setting.CloudMarker+" [subcmd]\n", w.String())
 	w.Reset()
 	stderr.Reset()
 	c.Usage = ""
@@ -57,7 +58,7 @@ func TestCmdPrint(t *testing.T) {
 	w.Reset()
 	stderr.Reset()
 	c.PrintSample(ctx)
-	assert.Equal(t, "\nSample:\n  aliyun oss\n", w.String())
+	assert.Equal(t, "\nSample:\n  "+setting.CloudMarker+" oss\n", w.String())
 
 	//PrintSubCommands
 	w.Reset()
@@ -101,5 +102,5 @@ func TestCmdPrint(t *testing.T) {
 	w.Reset()
 	stderr.Reset()
 	c.PrintTail(ctx)
-	assert.Equal(t, "\nUse `aliyun --help` for more information.\n", w.String())
+	assert.Equal(t, "\nUse `"+setting.CloudMarker+" --help` for more information.\n", w.String())
 }

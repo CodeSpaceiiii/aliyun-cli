@@ -16,6 +16,7 @@ package config
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/aliyun/aliyun-cli/setting"
 	"io"
 	"net/http"
 	"os"
@@ -191,35 +192,35 @@ func (cp *Profile) OverwriteWithFlags(ctx *cli.Context) {
 	cp.OIDCTokenFile = OIDCTokenFileFlag(ctx.Flags()).GetStringOrDefault(cp.OIDCTokenFile)
 
 	if cp.AccessKeyId == "" {
-		cp.AccessKeyId = util.GetFromEnv(ENV_SUFFIX+"_ACCESS_KEY_ID", "ACCESS_KEY_ID")
+		cp.AccessKeyId = util.GetFromEnv(setting.ENV_SUFFIX+"_ACCESS_KEY_ID", "ACCESS_KEY_ID")
 	}
 
 	if cp.AccessKeySecret == "" {
-		cp.AccessKeySecret = util.GetFromEnv(ENV_SUFFIX+"_ACCESS_KEY_SECRET", "ACCESS_KEY_SECRET")
+		cp.AccessKeySecret = util.GetFromEnv(setting.ENV_SUFFIX+"_ACCESS_KEY_SECRET", "ACCESS_KEY_SECRET")
 	}
 
 	if cp.StsToken == "" {
-		cp.StsToken = util.GetFromEnv(ENV_SUFFIX+"_SECURITY_TOKEN", "SECURITY_TOKEN")
+		cp.StsToken = util.GetFromEnv(setting.ENV_SUFFIX+"_SECURITY_TOKEN", "SECURITY_TOKEN")
 	}
 
 	if cp.RegionId == "" {
-		cp.RegionId = util.GetFromEnv(ENV_SUFFIX+"_REGION_ID", "REGION_ID", "REGION")
+		cp.RegionId = util.GetFromEnv(setting.ENV_SUFFIX+"_REGION_ID", "REGION_ID", "REGION")
 	}
 
 	if cp.CredentialsURI == "" {
-		cp.CredentialsURI = os.Getenv(ENV_SUFFIX + "_CREDENTIALS_URI")
+		cp.CredentialsURI = os.Getenv(setting.ENV_SUFFIX + "_CREDENTIALS_URI")
 	}
 
 	if cp.OIDCProviderARN == "" {
-		cp.OIDCProviderARN = util.GetFromEnv(ENV_SUFFIX + "_OIDC_PROVIDER_ARN")
+		cp.OIDCProviderARN = util.GetFromEnv(setting.ENV_SUFFIX + "_OIDC_PROVIDER_ARN")
 	}
 
 	if cp.OIDCTokenFile == "" {
-		cp.OIDCTokenFile = util.GetFromEnv(ENV_SUFFIX + "_OIDC_TOKEN_FILE")
+		cp.OIDCTokenFile = util.GetFromEnv(setting.ENV_SUFFIX + "_OIDC_TOKEN_FILE")
 	}
 
 	if cp.RamRoleArn == "" {
-		cp.RamRoleArn = util.GetFromEnv(ENV_SUFFIX + "_ROLE_ARN")
+		cp.RamRoleArn = util.GetFromEnv(setting.ENV_SUFFIX + "_ROLE_ARN")
 	}
 
 	AutoModeRecognition(cp)
@@ -259,9 +260,9 @@ func (cp *Profile) ValidateAK() error {
 
 func getSTSEndpoint(regionId string) string {
 	if regionId != "" {
-		return fmt.Sprintf("sts.%s.%s", regionId, DOMAIN_SUFFIX)
+		return fmt.Sprintf("sts.%s.%s", regionId, setting.DOMAIN_SUFFIX)
 	}
-	return STS_DEFAULT_DOMAIN
+	return setting.STS_DEFAULT_DOMAIN
 }
 
 func (cp *Profile) GetCredential(ctx *cli.Context, proxyHost *string) (cred credentialsv2.Credential, err error) {
@@ -395,7 +396,7 @@ func (cp *Profile) GetCredential(ctx *cli.Context, proxyHost *string) (cred cred
 		uri := cp.CredentialsURI
 
 		if uri == "" {
-			uri = os.Getenv(ENV_SUFFIX + "_CREDENTIALS_URI")
+			uri = os.Getenv(setting.ENV_SUFFIX + "_CREDENTIALS_URI")
 		}
 
 		if uri == "" {
