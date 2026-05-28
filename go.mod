@@ -1,8 +1,6 @@
 module github.com/aliyun/aliyun-cli/v3
 
-go 1.23.0
-
-toolchain go1.23.8
+go 1.25.0
 
 require (
 	github.com/alibabacloud-go/alibabacloud-gateway-sls v0.3.0
@@ -19,6 +17,7 @@ require (
 	github.com/pierrec/lz4 v2.6.0+incompatible
 	github.com/stretchr/testify v1.10.0
 	github.com/syndtr/goleveldb v1.0.0
+	go.starlark.net v0.0.0-20260522144826-ec58d4b459e2
 	golang.org/x/crypto v0.41.0
 	golang.org/x/mod v0.17.0
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c
@@ -52,8 +51,8 @@ require (
 	github.com/rogpeppe/go-internal v1.12.0 // indirect
 	github.com/tjfoc/gmsm v1.4.1 // indirect
 	golang.org/x/net v0.42.0 // indirect
-	golang.org/x/sys v0.35.0 // indirect
-	golang.org/x/term v0.34.0 // indirect
+	golang.org/x/sys v0.42.0 // indirect
+	golang.org/x/term v0.41.0 // indirect
 	golang.org/x/time v0.11.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

@@ -27,3 +27,5 @@ cli-metadata/
 __debug_bin*
 .qoder
 docs/superpowers/
+docs/design/
+docs/reports/

@@ -20,6 +20,7 @@ import (
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/responses"
 	"github.com/aliyun/aliyun-cli/v3/cli"
 	"github.com/aliyun/aliyun-cli/v3/cli/plugin"
+	"github.com/aliyun/aliyun-cli/v3/cli/starplugin"
 	"github.com/aliyun/aliyun-cli/v3/config"
 	"github.com/aliyun/aliyun-cli/v3/i18n"
 	"github.com/aliyun/aliyun-cli/v3/meta"
@@ -161,6 +162,18 @@ func (c *Commando) main(ctx *cli.Context, args []string) error {
 	if len(args) == 0 {
 		c.printUsage(ctx)
 		return nil
+	}
+
+	// Starlark plugin routing: check if a star plugin exists for this product
+	if starplugin.PluginExists(args[0]) {
+		productName := args[0]
+		ctx.SetInConfigureMode(DetectInConfigureMode(ctx.Flags()))
+		profile, err := config.LoadProfileWithContext(ctx)
+		if err != nil {
+			return fmt.Errorf("load profile failed: %w", err)
+		}
+		starArgs := rebuildStarArgs(args[1:], ctx)
+		return starplugin.Execute(&profile, productName, starArgs, ctx.Stdout(), ctx.Stderr())
 	}
 
 	// Check if we should show original product help instead of plugin help, only and need to be applied in product level
@@ -796,6 +809,18 @@ func (c *Commando) createHttpContext(ctx *cli.Context, product *meta.Product, ap
 
 func (c *Commando) help(ctx *cli.Context, args []string) error {
 	// fmt.Println("commando help", args)
+	// Starlark plugin help routing
+	if len(args) > 0 && starplugin.PluginExists(args[0]) {
+		productName := args[0]
+		ctx.SetInConfigureMode(DetectInConfigureMode(ctx.Flags()))
+		profile, err := config.LoadProfileWithContext(ctx)
+		if err != nil {
+			return fmt.Errorf("load profile failed: %w", err)
+		}
+		helpArgs := append(rebuildStarArgs(args[1:], ctx), "--help")
+		return starplugin.Execute(&profile, productName, helpArgs, ctx.Stdout(), ctx.Stderr())
+	}
+
 	c.loadPlugins()
 	cmd := ctx.Command()
 	if len(args) == 0 {
@@ -1052,4 +1077,66 @@ func (c *Commando) setLangEnv(ctx *cli.Context) {
 	}
 	envs["LANG"] = langEnv
 	ctx.SetRuntimeEnvs(envs)
+}
+
+// rebuildArgsWithFlags reconstructs args from positional args and unknown flags.
+func rebuildArgsWithFlags(positionalArgs []string, unknownFlags *cli.FlagSet) []string {
+	result := make([]string, 0, len(positionalArgs))
+	result = append(result, positionalArgs...)
+	if unknownFlags == nil {
+		return result
+	}
+	for _, f := range unknownFlags.Flags() {
+		if !f.IsAssigned() {
+			continue
+		}
+		values := f.GetValues()
+		if len(values) > 0 {
+			for _, v := range values {
+				result = append(result, "--"+f.Name, v)
+			}
+		} else {
+			val, _ := f.GetValue()
+			if val != "" {
+				result = append(result, "--"+f.Name, val)
+			} else {
+				result = append(result, "--"+f.Name)
+			}
+		}
+	}
+	return result
+}
+
+// rebuildStarArgs reconstructs args for starlark plugins, including both
+// unknown flags (plugin-specific params) and select known global flags
+// (--region, --endpoint, --cli-query, --quiet, --dryrun) that need to be
+// forwarded to the starlark engine.
+func rebuildStarArgs(positionalArgs []string, ctx *cli.Context) []string {
+	result := rebuildArgsWithFlags(positionalArgs, ctx.UnknownFlags())
+
+	// Forward known global flags to starlark engine
+	flags := ctx.Flags()
+
+	if f := config.RegionFlag(flags); f != nil && f.IsAssigned() {
+		if val, ok := f.GetValue(); ok && val != "" {
+			result = append(result, "--region", val)
+		}
+	}
+	if f := config.EndpointFlag(flags); f != nil && f.IsAssigned() {
+		if val, ok := f.GetValue(); ok && val != "" {
+			result = append(result, "--endpoint", val)
+		}
+	}
+	if f := QueryFlag(flags); f != nil && f.IsAssigned() {
+		if val, ok := f.GetValue(); ok && val != "" {
+			result = append(result, "--cli-query", val)
+		}
+	}
+	if f := DryRunFlag(flags); f != nil && f.IsAssigned() {
+		result = append(result, "--cli-dry-run")
+	}
+	if f := QuietFlag(flags); f != nil && f.IsAssigned() {
+		result = append(result, "--quiet")
+	}
+	return result
 }
